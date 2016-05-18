@@ -3,6 +3,7 @@ package vista;
 
 import controlador.Controlador_FRM_MantenimientoUsuarios;
 import javax.swing.JOptionPane;
+import modelo.ConexionBD;
 
 public class FRM_MantenimientoUsuarios extends javax.swing.JFrame {
 
@@ -10,13 +11,13 @@ public class FRM_MantenimientoUsuarios extends javax.swing.JFrame {
     FRM_Inicio frm_Inicio;
     FRM_VentanaPrincipal frm_VentanaPrincipal;
     
-    public FRM_MantenimientoUsuarios(FRM_Inicio frm_Inicio,FRM_VentanaPrincipal frm_VentanaPrincipal) {
+    public FRM_MantenimientoUsuarios(FRM_Inicio frm_Inicio,FRM_VentanaPrincipal frm_VentanaPrincipal,ConexionBD conexion) {
         super("Mantenimiento de Usuarios");
         initComponents();
         this.setLocation(250, 200);
         this.frm_VentanaPrincipal=frm_VentanaPrincipal;
         this.frm_Inicio=frm_Inicio;
-        controlador_FRM_MantenimientoUsuarios= new Controlador_FRM_MantenimientoUsuarios(frm_Inicio,this);
+        controlador_FRM_MantenimientoUsuarios= new Controlador_FRM_MantenimientoUsuarios(frm_Inicio,this,conexion);
         this.panel_Botones1.agregarEventos(controlador_FRM_MantenimientoUsuarios);
         cargarTipoUsuario();
     }
@@ -232,6 +233,9 @@ public class FRM_MantenimientoUsuarios extends javax.swing.JFrame {
         {
             if(frm_Inicio.fuente.equals("AP"))
                this.controlador_FRM_MantenimientoUsuarios.buscarAP();
+            
+            if(frm_Inicio.fuente.equals("BD"))
+               this.controlador_FRM_MantenimientoUsuarios.buscarBD();
         }
     }//GEN-LAST:event_jt_CedulaKeyPressed
 
@@ -240,6 +244,11 @@ public class FRM_MantenimientoUsuarios extends javax.swing.JFrame {
         if(frm_Inicio.fuente.equals("AP"))
         {
             this.controlador_FRM_MantenimientoUsuarios.metodosUsuarios.escribirInformacionEnElArchivo();
+            this.frm_VentanaPrincipal.show();
+            resetearGUI();
+        }
+        if(frm_Inicio.fuente.equals("BD"))
+        {
             this.frm_VentanaPrincipal.show();
             resetearGUI();
         }

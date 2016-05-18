@@ -3,6 +3,7 @@ package vista;
 
 import controlador.Controlador_FRM_Login;
 import javax.swing.JOptionPane;
+import modelo.ConexionBD;
 import modelo.MetodosUsuarios;
 
 public class FRM_Login extends javax.swing.JFrame {
@@ -11,12 +12,12 @@ public class FRM_Login extends javax.swing.JFrame {
     FRM_VentanaPrincipal frm_VentanaPrincipal;
     public MetodosUsuarios metodosUsuarios;
     
-    public FRM_Login(FRM_Inicio frm_Inicio,FRM_VentanaPrincipal frm_VentanaPrincipal,MetodosUsuarios metodosUsuarios) {
+    public FRM_Login(FRM_Inicio frm_Inicio,FRM_VentanaPrincipal frm_VentanaPrincipal,MetodosUsuarios metodosUsuarios,ConexionBD conexion) {
         super("Login");
         initComponents();
         this.setLocation(500, 250);
         this.metodosUsuarios=metodosUsuarios;
-        controlador_FRM_Login= new Controlador_FRM_Login(frm_Inicio,this,frm_VentanaPrincipal);
+        controlador_FRM_Login= new Controlador_FRM_Login(frm_Inicio,this,frm_VentanaPrincipal,conexion);
         agregarEventos(controlador_FRM_Login);
     }
     

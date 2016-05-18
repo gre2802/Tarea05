@@ -4,6 +4,7 @@ package vista;
 import controlador.Controlador_FRM_Matricula;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.ConexionBD;
 import modelo.MetodosMatricula;
 
 public class FRM_Matricula extends javax.swing.JFrame {
@@ -12,13 +13,15 @@ public class FRM_Matricula extends javax.swing.JFrame {
     Controlador_FRM_Matricula controlador_FRM_Matricula;
     MetodosMatricula metodosMatricula;
     FRM_Inicio frm_Inicio;
+    ConexionBD conexion;
     
-    public FRM_Matricula(FRM_Inicio frm_Inicio,FRM_MantenimientoEstudiantes frm_MantenimientoEstufiantes,FRM_MantenimientoCursos frm_MantenimientoCursos) {
+    public FRM_Matricula(FRM_Inicio frm_Inicio,FRM_MantenimientoEstudiantes frm_MantenimientoEstufiantes,FRM_MantenimientoCursos frm_MantenimientoCursos,ConexionBD conexion) {
         super("Matricula");
         initComponents();
         this.setLocation(250, 200);
         this.frm_Inicio=frm_Inicio;
-        controlador_FRM_Matricula= new Controlador_FRM_Matricula(frm_Inicio,this,frm_MantenimientoEstufiantes,frm_MantenimientoCursos);
+        this.conexion=conexion;
+        controlador_FRM_Matricula= new Controlador_FRM_Matricula(frm_Inicio,this,frm_MantenimientoEstufiantes,frm_MantenimientoCursos,conexion);
         metodosMatricula=controlador_FRM_Matricula.metodosMatricula;
         modelo= new DefaultTableModel();
         colocarTitulosTabla();
@@ -41,7 +44,11 @@ public class FRM_Matricula extends javax.swing.JFrame {
     }
     public void colocarCodigo()
     {
-        this.jt_CodigoMatricula.setText(metodosMatricula.devolverCodigo());
+        if(frm_Inicio.fuente.equals("AP"))
+            this.jt_CodigoMatricula.setText(metodosMatricula.devolverCodigo());
+        
+        if(frm_Inicio.fuente.equals("BD"))
+            this.jt_CodigoMatricula.setText(conexion.devolverCodigo());
     }
     public int getCantidadFilas()
     {
@@ -351,6 +358,9 @@ public class FRM_Matricula extends javax.swing.JFrame {
         {
             if(frm_Inicio.fuente.equals("AP"))
             this.controlador_FRM_Matricula.buscarEstudianteAP();
+            
+            if(frm_Inicio.fuente.equals("BD"))
+                this.controlador_FRM_Matricula.buscarEstudianteBD();
         }
     }//GEN-LAST:event_jt_CedulaKeyPressed
 
@@ -360,13 +370,22 @@ public class FRM_Matricula extends javax.swing.JFrame {
         {
             if(frm_Inicio.fuente.equals("AP"))
             this.controlador_FRM_Matricula.buscarCursoAP();
+            
+            if(frm_Inicio.fuente.equals("BD"))
+                this.controlador_FRM_Matricula.buscarCursoBD();
         }
     }//GEN-LAST:event_jt_SiglaKeyPressed
 
     private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
         
-        this.controlador_FRM_Matricula.metodosMatricula.escribirInformacionEnElArchivo();
-        resetearVentana();
+        if(frm_Inicio.fuente.equals("AP")){
+            this.controlador_FRM_Matricula.metodosMatricula.escribirInformacionEnElArchivo();
+            resetearVentana();
+        }
+        
+        if(frm_Inicio.fuente.equals("BD")){
+            resetearVentana();
+        }
     }//GEN-LAST:event_formComponentHidden
 
     /**

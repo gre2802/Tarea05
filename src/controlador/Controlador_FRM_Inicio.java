@@ -5,8 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import vista.FRM_Inicio;
 
-public class Controlador_FRM_Inicio implements ActionListener
-{
+public class Controlador_FRM_Inicio implements ActionListener {
+    
     FRM_Inicio frm_Inicio;
     private String fuente="";
     

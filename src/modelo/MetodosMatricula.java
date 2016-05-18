@@ -1,18 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package modelo;
 
 import controlador.Controlador_FRM_Matricula;
 import java.util.ArrayList;
 import vista.FRM_Matricula;
 
-/**
- *
- * @author Carlos
- */
 public class MetodosMatricula {
     
     private ArrayList <Matricula> arrayMatriculas;

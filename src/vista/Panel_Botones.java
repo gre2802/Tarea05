@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package vista;
 
 import controlador.Controlador_FRM_MantenimientoCursos;
@@ -10,15 +6,8 @@ import controlador.Controlador_FRM_MantenimientoEstudiantes;
 import controlador.Controlador_FRM_MantenimientoUsuarios;
 import controlador.Controlador_FRM_Matricula;
 
-/**
- *
- * @author tecnologiamultimedia
- */
 public class Panel_Botones extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Panel_Botones
-     */
     public Panel_Botones() {
         initComponents();
         this.btn_Agregar.setEnabled(false);
