@@ -37,7 +37,7 @@ public class Controlador_FRM_VentanaPrincipal implements ActionListener {
         frm_Matricula= new FRM_Matricula(frm_Inicio,frm_MantenimientoEstudiantes,frm_MantenimientoCursos,conexion);
         conexion.asignarFRM_Matricula();
         frm_MantenimientoUsuarios= new FRM_MantenimientoUsuarios(frm_Inicio,frm_VentanaPrincipal,conexion);
-        frm_Login= new FRM_Login(frm_Inicio,frm_VentanaPrincipal,frm_MantenimientoUsuarios.controlador_FRM_MantenimientoUsuarios.metodosUsuarios,conexion);
+        frm_Login= new FRM_Login(frm_Inicio,frm_VentanaPrincipal,frm_MantenimientoUsuarios.controlador_FRM_MantenimientoUsuarios.metodosUsuarios,conexion,frm_MantenimientoUsuarios);
     }
     public void actionPerformed(ActionEvent e)
     {
@@ -89,6 +89,17 @@ public class Controlador_FRM_VentanaPrincipal implements ActionListener {
             else 
             {
                 this.frm_Login.show();
+            }
+        }
+        if(fuente.endsWith("XML"))
+        {
+            if(frm_MantenimientoUsuarios.controlador_FRM_MantenimientoUsuarios.metodos_XML_Usuarios.tamañoXML()>0)
+            {
+                this.frm_Login.show();
+            }
+            else 
+            {
+                this.frm_MantenimientoUsuarios.show();
             }
         }
     }

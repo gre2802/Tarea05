@@ -34,6 +34,11 @@ public class Panel_InformacionBasica extends javax.swing.JPanel {
         this.jt_NombreCompleto.setText(arreglo[0]);
         this.jt_Direccion.setText(arreglo[1]);
     }
+    public void mostrarInformacionXML(String arreglo[])
+    {
+        this.jt_NombreCompleto.setText(arreglo[1]);
+        this.jt_Direccion.setText(arreglo[2]);
+    }
     public void habilitarCampos()
     {
         this.jt_NombreCompleto.setEnabled(true);

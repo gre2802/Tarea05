@@ -4,8 +4,10 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import modelo.ConexionBD;
+import modelo.Metodos_XML_Usuarios;
 import vista.FRM_Inicio;
 import vista.FRM_Login;
+import vista.FRM_MantenimientoUsuarios;
 import vista.FRM_VentanaPrincipal;
 
 public class Controlador_FRM_Login implements ActionListener {
@@ -13,14 +15,16 @@ public class Controlador_FRM_Login implements ActionListener {
     FRM_Login frm_Login;
     FRM_Inicio frm_Inicio;
     FRM_VentanaPrincipal frm_VentanaPrincipal;
+    Metodos_XML_Usuarios metodos_XML_Usuarios;
     ConexionBD conexion;
     
-    public Controlador_FRM_Login(FRM_Inicio frm_Inicio,FRM_Login frm_Login,FRM_VentanaPrincipal frm_VentanaPrincipal,ConexionBD conexion) 
+    public Controlador_FRM_Login(FRM_Inicio frm_Inicio,FRM_Login frm_Login,FRM_VentanaPrincipal frm_VentanaPrincipal,ConexionBD conexion,FRM_MantenimientoUsuarios frm_MantenimientoUsuarios) 
     {
         this.frm_Inicio=frm_Inicio;
         this.frm_Login=frm_Login;
         this.frm_VentanaPrincipal=frm_VentanaPrincipal;
         this.conexion=conexion;
+        this.metodos_XML_Usuarios=frm_MantenimientoUsuarios.controlador_FRM_MantenimientoUsuarios.metodos_XML_Usuarios;
     }
     
     public void actionPerformed(ActionEvent e)
@@ -32,6 +36,9 @@ public class Controlador_FRM_Login implements ActionListener {
             
             if(frm_Inicio.fuente.equals("BD"))
                 ingresarBD();
+            
+            if(frm_Inicio.fuente.equals("XML"))
+                ingresarXML();
         }
         if(e.getActionCommand().equals("Salir"))
         {
@@ -40,6 +47,9 @@ public class Controlador_FRM_Login implements ActionListener {
             
             if(frm_Inicio.fuente.equals("BD"))
                 salirBD();
+            
+            if(frm_Inicio.fuente.equals("XML"))
+                salirXML();
         }
     }
     public void habilitarOpciones(String tipoUsuario) 
@@ -130,6 +140,42 @@ public class Controlador_FRM_Login implements ActionListener {
     public void salirBD()
     {
          frm_Login.mostrarMensaje("Cerrando Sesión");
+        frm_Login.resetearGUI();
+        frm_Login.habilitarIngreso();
+        this.frm_VentanaPrincipal.deshabilitarUsuarios();
+        this.frm_VentanaPrincipal.deshabilitarCursos();
+        this.frm_VentanaPrincipal.deshabilitarEstudiantes();
+        this.frm_VentanaPrincipal.deshabilitarMatricula();
+        frm_Login.setVisible(false);
+    }
+    /// Metodos XML ///
+    public void ingresarXML()
+    {
+        if(metodos_XML_Usuarios.consultarUsuarioRegistrado(frm_Login.devolverNombreUsuario()))
+        {
+            if(frm_Login.devolverContraseña().equals(metodos_XML_Usuarios.getArregloUsuarios()[1]))
+            {
+                habilitarOpciones(metodos_XML_Usuarios.getArregloUsuarios()[2]);
+                frm_Login.mostrarMensaje("Sesión Iniciada");
+                frm_Login.setVisible(false);
+                frm_Login.deshabilitarIngreso();
+                frm_VentanaPrincipal.show();
+            }
+            else
+            {
+                frm_Login.mostrarMensaje("Contraseña incorrecta, por favor digitela de nuevo");
+                frm_Login.limpiarCampoContraseña();
+            }
+        }
+        else
+        {
+            frm_Login.mostrarMensaje("El usuario no se encuentra registrado");
+            frm_Login.resetearGUI();
+        }
+    }
+    public void salirXML()
+    {
+        frm_Login.mostrarMensaje("Cerrando Sesión");
         frm_Login.resetearGUI();
         frm_Login.habilitarIngreso();
         this.frm_VentanaPrincipal.deshabilitarUsuarios();

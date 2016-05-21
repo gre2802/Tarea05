@@ -34,16 +34,32 @@ public class FRM_MantenimientoUsuarios extends javax.swing.JFrame {
     }
     public void mostrarInformacion(String arreglo[])
     {
-        this.jt_NombreCompleto.setText(arreglo[0]);
-        this.jt_NombreUsuario.setText(arreglo[1]);
-        this.jpf_Contraseña.setText(arreglo[2]);
-        
-        if(arreglo[3].equals("Administrador"))
-            this.jcb_Tipo.setSelectedIndex(0);
-        if(arreglo[3].equals("Docente"))
-            this.jcb_Tipo.setSelectedIndex(1);
-        if(arreglo[3].equals("Estudiante"))
-            this.jcb_Tipo.setSelectedIndex(2);
+        if(frm_Inicio.fuente.equals("XML"))
+        {
+            this.jt_NombreCompleto.setText(arreglo[1]);
+            this.jt_NombreUsuario.setText(arreglo[2]);
+            this.jpf_Contraseña.setText(arreglo[3]);
+
+            if(arreglo[4].equals("Administrador"))
+                this.jcb_Tipo.setSelectedIndex(0);
+            if(arreglo[4].equals("Docente"))
+                this.jcb_Tipo.setSelectedIndex(1);
+            if(arreglo[4].equals("Estudiante"))
+                this.jcb_Tipo.setSelectedIndex(2);
+        }
+        else
+        {
+            this.jt_NombreCompleto.setText(arreglo[0]);
+            this.jt_NombreUsuario.setText(arreglo[1]);
+            this.jpf_Contraseña.setText(arreglo[2]);
+
+            if(arreglo[3].equals("Administrador"))
+                this.jcb_Tipo.setSelectedIndex(0);
+            if(arreglo[3].equals("Docente"))
+                this.jcb_Tipo.setSelectedIndex(1);
+            if(arreglo[3].equals("Estudiante"))
+                this.jcb_Tipo.setSelectedIndex(2);
+        }
     }
     public String[] devolverInformacion()
     {
@@ -248,6 +264,11 @@ public class FRM_MantenimientoUsuarios extends javax.swing.JFrame {
             resetearGUI();
         }
         if(frm_Inicio.fuente.equals("BD"))
+        {
+            this.frm_VentanaPrincipal.show();
+            resetearGUI();
+        }
+        if(frm_Inicio.fuente.equals("XML"))
         {
             this.frm_VentanaPrincipal.show();
             resetearGUI();

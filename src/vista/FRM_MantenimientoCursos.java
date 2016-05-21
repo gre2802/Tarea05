@@ -39,6 +39,10 @@ public class FRM_MantenimientoCursos extends javax.swing.JFrame {
     {
         this.panel_Cursos2.mostrarInformacion(arreglo);
     }
+    public void mostrarInformacionXML(String arreglo[])
+    {
+        this.panel_Cursos2.mostrarInformacionXML(arreglo);
+    }
     public void mostrarMensaje(String mensaje)
     {
         JOptionPane.showMessageDialog(null,mensaje);
@@ -103,6 +107,10 @@ public class FRM_MantenimientoCursos extends javax.swing.JFrame {
             resetearGUI();
         }
         if(frm_Inicio.fuente.equals("BD"))
+        {
+           resetearGUI();
+        }
+        if(frm_Inicio.fuente.equals("XML"))
         {
            resetearGUI();
         }

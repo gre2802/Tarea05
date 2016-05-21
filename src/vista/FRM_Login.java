@@ -12,12 +12,12 @@ public class FRM_Login extends javax.swing.JFrame {
     FRM_VentanaPrincipal frm_VentanaPrincipal;
     public MetodosUsuarios metodosUsuarios;
     
-    public FRM_Login(FRM_Inicio frm_Inicio,FRM_VentanaPrincipal frm_VentanaPrincipal,MetodosUsuarios metodosUsuarios,ConexionBD conexion) {
+    public FRM_Login(FRM_Inicio frm_Inicio,FRM_VentanaPrincipal frm_VentanaPrincipal,MetodosUsuarios metodosUsuarios,ConexionBD conexion,FRM_MantenimientoUsuarios frm_MantenimientoUsuarios) {
         super("Login");
         initComponents();
         this.setLocation(500, 250);
         this.metodosUsuarios=metodosUsuarios;
-        controlador_FRM_Login= new Controlador_FRM_Login(frm_Inicio,this,frm_VentanaPrincipal,conexion);
+        controlador_FRM_Login= new Controlador_FRM_Login(frm_Inicio,this,frm_VentanaPrincipal,conexion,frm_MantenimientoUsuarios);
         agregarEventos(controlador_FRM_Login);
     }
     

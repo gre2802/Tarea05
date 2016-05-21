@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import modelo.ConexionBD;
 import modelo.MetodosUsuarios;
+import modelo.Metodos_XML_Usuarios;
 import vista.FRM_Inicio;
 import vista.FRM_MantenimientoUsuarios;
 
@@ -12,6 +13,7 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
     
     FRM_Inicio frm_Inicio;
     public MetodosUsuarios metodosUsuarios;
+    public Metodos_XML_Usuarios metodos_XML_Usuarios;
     FRM_MantenimientoUsuarios frm_MantenimientoUsuarios;
     ConexionBD conexion;
 
@@ -28,6 +30,11 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
             this.conexion=conexion;
             this.frm_MantenimientoUsuarios=frm_MantenimientoUsuarios;
         }
+        if(frm_Inicio.fuente.equals("XML"))
+        {
+            this.metodos_XML_Usuarios= new Metodos_XML_Usuarios(frm_MantenimientoUsuarios);
+            this.frm_MantenimientoUsuarios=frm_MantenimientoUsuarios;
+        }
     }
     
     public void actionPerformed(ActionEvent e) 
@@ -40,6 +47,9 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
             
             if(frm_Inicio.fuente.equals("BD"))
                 agregarBD();
+            
+            if(frm_Inicio.fuente.equals("XML"))
+                agregarXML();
         }
         if(e.getActionCommand().equals("Consultar"))
         {
@@ -48,6 +58,9 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
             
             if(frm_Inicio.fuente.equals("BD"))
                 buscarBD();
+            
+            if(frm_Inicio.fuente.equals("XML"))
+                buscarXML();
         }
         if(e.getActionCommand().equals("Modificar"))
         {
@@ -56,6 +69,9 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
             
             if(frm_Inicio.fuente.equals("BD"))
                 modificarBD();
+            
+            if(frm_Inicio.fuente.equals("XML"))
+                modificarXML();
         }
         if(e.getActionCommand().equals("Eliminar"))
         {
@@ -64,6 +80,9 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
             
             if(frm_Inicio.fuente.equals("BD"))
                 eliminarBD();
+            
+            if(frm_Inicio.fuente.equals("XML"))
+                eliminarXML();
         }
     }
     /// Metodos AP ///
@@ -159,6 +178,54 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
     public void eliminarBD()
     {
         conexion.eliminarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
+        frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue eliminado de forma correcta");
+        frm_MantenimientoUsuarios.resetearGUI();
+    }
+    /// Metodos XML ///
+    public void buscarXML()
+    {
+        if(metodos_XML_Usuarios.consultarUsuario(frm_MantenimientoUsuarios.devolverCedula()))
+            {
+                frm_MantenimientoUsuarios.mostrarInformacion(metodos_XML_Usuarios.getArregloInformacion());
+                frm_MantenimientoUsuarios.habilitarEdicion();
+            }
+            else
+            {
+                frm_MantenimientoUsuarios.mostrarMensaje("La cédula buscada no se encuentra");
+                frm_MantenimientoUsuarios.habilitarAgregar();
+            }
+    }
+    public void agregarXML()
+    {
+        if(frm_MantenimientoUsuarios.verificarContraseñas())
+            {
+                metodos_XML_Usuarios.agregarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
+                frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue agregado de forma correcta");
+                frm_MantenimientoUsuarios.resetearGUI();
+            }
+            else
+            {
+                frm_MantenimientoUsuarios.mostrarMensaje("Contaseñas distintas\n\nVuelva a repetir la contraseña");
+                frm_MantenimientoUsuarios.limpiarRepetirContraseña();
+            }
+    }
+    public void modificarXML()
+    {
+        if(frm_MantenimientoUsuarios.verificarContraseñas())
+            {
+                metodos_XML_Usuarios.modificarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
+                frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue modificado de forma correcta");
+                frm_MantenimientoUsuarios.resetearGUI();
+            }
+            else
+            {
+                frm_MantenimientoUsuarios.mostrarMensaje("Contaseñas distintas\n\nVuelva a repetir la contraseña");
+                frm_MantenimientoUsuarios.limpiarRepetirContraseña();
+            }
+    }
+    public void eliminarXML()
+    {
+        metodos_XML_Usuarios.eliminarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
         frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue eliminado de forma correcta");
         frm_MantenimientoUsuarios.resetearGUI();
     }
