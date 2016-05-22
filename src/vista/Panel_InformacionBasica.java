@@ -3,18 +3,18 @@ package vista;
 
 import controlador.Controlador_FRM_MantenimientoEstudiantes;
 import javax.swing.JOptionPane;
-import modelo.Verificador;
+import modelo.Verificador_XML;
 
 public class Panel_InformacionBasica extends javax.swing.JPanel {
 
     Controlador_FRM_MantenimientoEstudiantes controlador;
-    Verificador verificador;
+    Verificador_XML verificador;
     
     public Panel_InformacionBasica() {
         initComponents();
         deshabilitarCampos();
     }
-    public void agregarEventos(Controlador_FRM_MantenimientoEstudiantes controlador,Verificador verificador)
+    public void agregarEventos(Controlador_FRM_MantenimientoEstudiantes controlador,Verificador_XML verificador)
     {
         this.controlador=controlador;
         this.btn_ConsultaRapida.addActionListener(controlador);
@@ -121,10 +121,13 @@ public class Panel_InformacionBasica extends javax.swing.JPanel {
         jt_Direccion = new javax.swing.JTextField();
         btn_ConsultaRapida = new javax.swing.JButton();
 
+        jl_Cedula.setFont(new java.awt.Font("Consolas", 3, 18)); // NOI18N
         jl_Cedula.setText("Cédula");
 
+        jl_NombreCompleto.setFont(new java.awt.Font("Consolas", 3, 18)); // NOI18N
         jl_NombreCompleto.setText("Nombre Completo");
 
+        jl_Direccion.setFont(new java.awt.Font("Consolas", 3, 18)); // NOI18N
         jl_Direccion.setText("Dirección");
 
         btn_ConsultaRapida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar.png"))); // NOI18N
@@ -146,7 +149,7 @@ public class Panel_InformacionBasica extends javax.swing.JPanel {
                         .addComponent(jt_Cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_ConsultaRapida)
-                        .addGap(0, 71, Short.MAX_VALUE))
+                        .addGap(0, 23, Short.MAX_VALUE))
                     .addComponent(jt_NombreCompleto)
                     .addComponent(jt_Direccion, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())

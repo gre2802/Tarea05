@@ -3,12 +3,12 @@ package vista;
 
 import controlador.Controlador_FRM_MantenimientoCursos;
 import javax.swing.JOptionPane;
-import modelo.Verificador;
+import modelo.Verificador_XML;
 
 public class Panel_Cursos extends javax.swing.JPanel {
 
     Controlador_FRM_MantenimientoCursos controlador;
-    Verificador verificador;
+    Verificador_XML verificador;
     
     public Panel_Cursos() {
         initComponents();
@@ -16,7 +16,7 @@ public class Panel_Cursos extends javax.swing.JPanel {
         desabilitarCampos();
     }
     
-    public void agregarEventos(Controlador_FRM_MantenimientoCursos controlador,Verificador verificador)
+    public void agregarEventos(Controlador_FRM_MantenimientoCursos controlador,Verificador_XML verificador)
     {
         this.btn_ConsultaRapida.addActionListener(controlador);
         this.controlador=controlador;
@@ -144,17 +144,20 @@ public class Panel_Cursos extends javax.swing.JPanel {
         jt_Horario = new javax.swing.JTextField();
         btn_ConsultaRapida = new javax.swing.JButton();
 
+        jl_Sigla.setFont(new java.awt.Font("Consolas", 3, 18)); // NOI18N
         jl_Sigla.setText("Sigla");
 
+        jl_NombreCurso.setFont(new java.awt.Font("Consolas", 3, 18)); // NOI18N
         jl_NombreCurso.setText("Nombre");
 
+        jl_Creditos.setFont(new java.awt.Font("Consolas", 3, 18)); // NOI18N
         jl_Creditos.setText("Créditos");
 
         jcb_Creditos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jl_Horario.setFont(new java.awt.Font("Consolas", 3, 18)); // NOI18N
         jl_Horario.setText("Horario");
 
-        btn_ConsultaRapida.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN1\\Documents\\UCR\\Progra 2\\img\\buscar.png")); // NOI18N
         btn_ConsultaRapida.setActionCommand("ConsultaRapida");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -163,28 +166,26 @@ public class Panel_Cursos extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jl_NombreCurso)
+                    .addComponent(jl_Sigla)
+                    .addComponent(jl_Horario)
+                    .addComponent(jl_Creditos))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jt_Horario)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jl_Horario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jt_Horario))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jl_NombreCurso)
-                            .addComponent(jl_Sigla))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jt_Sigla, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btn_ConsultaRapida, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                            .addComponent(jt_NombreCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(1, 1, 1))
+                            .addComponent(jt_NombreCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jl_Creditos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jcb_Creditos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                        .addGap(6, 6, 6)
+                        .addComponent(jcb_Creditos, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(44, 44, 44))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,7 +210,7 @@ public class Panel_Cursos extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jl_Horario)
                     .addComponent(jt_Horario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

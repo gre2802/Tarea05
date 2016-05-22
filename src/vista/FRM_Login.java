@@ -9,10 +9,10 @@ import modelo.MetodosUsuarios;
 public class FRM_Login extends javax.swing.JFrame {
 
     Controlador_FRM_Login controlador_FRM_Login;
-    FRM_VentanaPrincipal frm_VentanaPrincipal;
+    FRM_Ventana frm_VentanaPrincipal;
     public MetodosUsuarios metodosUsuarios;
     
-    public FRM_Login(FRM_Inicio frm_Inicio,FRM_VentanaPrincipal frm_VentanaPrincipal,MetodosUsuarios metodosUsuarios,ConexionBD conexion,FRM_MantenimientoUsuarios frm_MantenimientoUsuarios) {
+    public FRM_Login(FRM_Iniciar frm_Inicio,FRM_Ventana frm_VentanaPrincipal,MetodosUsuarios metodosUsuarios,ConexionBD conexion,FRM_Usuarios frm_MantenimientoUsuarios) {
         super("Login");
         initComponents();
         this.setLocation(500, 250);
@@ -74,16 +74,20 @@ public class FRM_Login extends javax.swing.JFrame {
         btn_Ingresar = new javax.swing.JButton();
         btn_Salir = new javax.swing.JButton();
 
-        jl_TituloLogin.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jl_TituloLogin.setFont(new java.awt.Font("Consolas", 3, 18)); // NOI18N
         jl_TituloLogin.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jl_TituloLogin.setText("Login");
 
+        jl_NombreUsuario.setFont(new java.awt.Font("Consolas", 3, 18)); // NOI18N
         jl_NombreUsuario.setText("Nombre Usuario");
 
+        jl_Contraseña.setFont(new java.awt.Font("Consolas", 3, 18)); // NOI18N
         jl_Contraseña.setText("Contraseña");
 
+        btn_Ingresar.setFont(new java.awt.Font("Consolas", 3, 18)); // NOI18N
         btn_Ingresar.setText("Ingresar");
 
+        btn_Salir.setFont(new java.awt.Font("Consolas", 3, 18)); // NOI18N
         btn_Salir.setText("Salir");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -94,30 +98,31 @@ public class FRM_Login extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jl_TituloLogin)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jl_NombreUsuario)
-                                    .addComponent(jl_Contraseña))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jpf_Contraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                                    .addComponent(jt_NombreUsuario))))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
+                        .addGap(64, 64, 64)
                         .addComponent(btn_Ingresar)
-                        .addGap(18, 18, 18)
+                        .addGap(37, 37, 37)
                         .addComponent(btn_Salir)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jl_NombreUsuario)
+                            .addComponent(jl_Contraseña))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jpf_Contraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                            .addComponent(jt_NombreUsuario)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(jl_TituloLogin)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jl_TituloLogin)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jl_NombreUsuario)
                     .addComponent(jt_NombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -125,11 +130,11 @@ public class FRM_Login extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jl_Contraseña)
                     .addComponent(jpf_Contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_Ingresar)
                     .addComponent(btn_Salir))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();

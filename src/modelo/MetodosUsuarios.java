@@ -15,12 +15,12 @@ public class MetodosUsuarios {
         archivoUsuarios= new ArchivoUsuarios();
         arrayUsuarios= archivoUsuarios.devolverInformacionCompleta();
     }
-    public void agregarEstudiante(String informacion[])
+    public void agregarEstudianteAP(String informacion[])
     {
         Usuario temporal=new Usuario(informacion[0],informacion[1],informacion[2],informacion[3],informacion[4]);
         arrayUsuarios.add(temporal);
     }
-    public boolean consultarUsuario(String cedula)
+    public boolean consultarUsuarioAP(String cedula)
     {
         boolean existe=false;
         
@@ -39,7 +39,7 @@ public class MetodosUsuarios {
         return existe;
     
     }
-    public boolean consultarUsuarioRegistrado(String nombreUsuario)
+    public boolean consultarUsuarioRegistradoAP(String nombreUsuario)
     {
         boolean existe=false;
         
@@ -58,7 +58,7 @@ public class MetodosUsuarios {
         return existe;
     
     }
-    public void modificarUsuario(String arreglo[])
+    public void modificarUsuarioAP(String arreglo[])
     {
         for(int contador=0;contador<arrayUsuarios.size();contador++)
         {
@@ -71,7 +71,7 @@ public class MetodosUsuarios {
             }
         }
     }
-    public void eliminarUsuario(String arreglo[])
+    public void eliminarUsuarioAP(String arreglo[])
     {
         for(int contador=0;contador<arrayUsuarios.size();contador++)
         {
@@ -81,13 +81,13 @@ public class MetodosUsuarios {
             }
         }
     }
-    public void escribirInformacionEnElArchivo()
+    public void escribirInformacionEnElArchivoAP()
     {
-      archivoUsuarios.crearArchivo();
+      archivoUsuarios.crearArchivoPlano();
       
       for(int contador=0;contador<arrayUsuarios.size();contador++)
       {
-        archivoUsuarios.escribirInformacionEnElArchivo(arrayUsuarios.get(contador));
+        archivoUsuarios.escribirInformacionEnElArchivoPlano(arrayUsuarios.get(contador));
         
       }
     }

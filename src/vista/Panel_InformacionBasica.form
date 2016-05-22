@@ -29,7 +29,7 @@
                       <Component id="jt_Cedula" min="-2" pref="128" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btn_ConsultaRapida" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="71" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="23" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jt_NombreCompleto" alignment="0" max="32767" attributes="0"/>
                   <Component id="jt_Direccion" alignment="1" max="32767" attributes="0"/>
@@ -72,16 +72,25 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jl_Cedula">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Consolas" size="18" style="3"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="C&#xe9;dula"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jl_NombreCompleto">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Consolas" size="18" style="3"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Nombre Completo"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jl_Direccion">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Consolas" size="18" style="3"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Direcci&#xf3;n"/>
       </Properties>
     </Component>

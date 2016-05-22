@@ -4,14 +4,14 @@ package vista;
 import controlador.Controlador_FRM_MantenimientoCursos;
 import javax.swing.JOptionPane;
 import modelo.ConexionBD;
-import modelo.Verificador;
+import modelo.Verificador_XML;
 
-public class FRM_MantenimientoCursos extends javax.swing.JFrame {
+public class FRM_Cursos extends javax.swing.JFrame {
 
     public Controlador_FRM_MantenimientoCursos controlador_FRM_MantenimientoCursos;
-    FRM_Inicio frm_Inicio;
+    FRM_Iniciar frm_Inicio;
     
-    public FRM_MantenimientoCursos(FRM_Inicio frm_Inicio,ConexionBD conexion,Verificador verificador) {
+    public FRM_Cursos(FRM_Iniciar frm_Inicio,ConexionBD conexion,Verificador_XML verificador) {
         super("Mantenimiento de Cursos");
         initComponents();
         this.setLocation(250, 200);
@@ -97,16 +97,16 @@ public class FRM_MantenimientoCursos extends javax.swing.JFrame {
 
     private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
         
-        if(frm_Inicio.fuente.equals("AP"))
+        if(frm_Inicio.opcion.equals("AP"))
         {
-            this.controlador_FRM_MantenimientoCursos.metodosCursos.escribirInformacionEnElArchivo();
+            this.controlador_FRM_MantenimientoCursos.metodosCursos.escribirInformacionEnElArchivoAP();
             resetearGUI();
         }
-        if(frm_Inicio.fuente.equals("BD"))
+        if(frm_Inicio.opcion.equals("BD"))
         {
            resetearGUI();
         }
-        if(frm_Inicio.fuente.equals("XML"))
+        if(frm_Inicio.opcion.equals("XML"))
         {
            resetearGUI();
         }

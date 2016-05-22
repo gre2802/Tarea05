@@ -17,11 +17,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
-import vista.FRM_MantenimientoUsuarios;
+import vista.FRM_Estudiantes;
 
-public class Metodos_XML_Usuarios  {
-    
-    FRM_MantenimientoUsuarios frm_MantenimientoUsuarios;
+public class MetodosXML_Estudiantes  {
+    FRM_Estudiantes frm_MantenimientoEstudiantes;
     DocumentBuilderFactory factory;
     DocumentBuilder builder;
     DOMImplementation implementation;
@@ -30,32 +29,28 @@ public class Metodos_XML_Usuarios  {
     ArrayList valores;
     Element raiz,principal;
     String arregloInformacion[];
-    String arregloUsuarios[];
     Source source;
     Result result;
     Result console;
     Transformer transformer;
     String nombreArchivo;
-    public boolean archivo=false;
     
-    public Metodos_XML_Usuarios(FRM_MantenimientoUsuarios frm_MantenimientoUsuarios) 
+    public MetodosXML_Estudiantes(FRM_Estudiantes frm_MantenimientoEstudiantes)
     {
-        
-        this.frm_MantenimientoUsuarios=frm_MantenimientoUsuarios;
-        nombreArchivo="Usuarios";
+        this.frm_MantenimientoEstudiantes=frm_MantenimientoEstudiantes;
+        nombreArchivo="Estudiantes";
         
         if(cargarXML())
         {
-            System.out.println("Ya existe un archivo XML_Usuarios creado, ya fue cargado y puede proceder a utilizarlo");
+            System.out.println("Ya existe un archivo XML_Estudiantes creado, ya fue cargado y puede proceder a utilizarlo");
         }
         else
         {
             crearXML();
-            System.out.println("No existía un archivo XML_Usuarios creado, ya fue creado y puede proceder a utilizarlo");
+            System.out.println("No existía un archivo XML_Estudiantes creado, ya fue creado y puede proceder a utilizarlo");
         }
         
-        arregloInformacion=new String[5];
-        arregloUsuarios=new String[3];
+        arregloInformacion=new String[3];
         titulos = new ArrayList();
         valores = new ArrayList();
     }
@@ -78,7 +73,7 @@ public class Metodos_XML_Usuarios  {
             transformer.transform(source, console);
  
         } catch (Exception e) {
-            System.err.println("Error al crear el archivo XML_Usuarios: " + e);
+            System.err.println("Error al crear el archivo XML_Estudiantes: " + e);
         }
     }
     public boolean cargarXML()
@@ -93,19 +88,19 @@ public class Metodos_XML_Usuarios  {
             document.getDocumentElement().normalize();
             cargo=true;
             
-            NodeList nList = document.getElementsByTagName("Usuario");
+            NodeList nList = document.getElementsByTagName("Estudiante");
             Node nNode = nList.item(0);
             raiz = (Element) nNode;
                 
         } catch (Exception e) {
-            System.out.println("Error al cargar el archivo XML_Usuarios"+e);
+            System.out.println("Error al cargar el archivo XML_Estudiantes"+e);
         }
         return cargo;
     }
-    public boolean consultarUsuario(String cedula)
+    public boolean consultarEstudianteXML(String cedula)
     { 
          Element raiz = document.getDocumentElement();
-         NodeList listaDeItems = raiz.getElementsByTagName("Usuario");
+         NodeList listaDeItems = raiz.getElementsByTagName("Estudiante");
          Node tag=null,datoContenido=null;
 
          boolean itemEncontrado=false;
@@ -122,9 +117,9 @@ public class Metodos_XML_Usuarios  {
 
                  if(tag.getNodeName().equals("cedula") && datoContenido.getNodeValue().equals(""+cedula))
                  {
-                    itemEncontrado=true;     
+                    itemEncontrado=true;
                  }
-                 if(itemEncontrado && contador<5)
+                 if(itemEncontrado && contador<3)
                  {
                     arregloInformacion[contador]=datoContenido.getNodeValue();
                     contador++;
@@ -134,56 +129,20 @@ public class Metodos_XML_Usuarios  {
          }
          return itemEncontrado;
     }
-    public boolean consultarUsuarioRegistrado(String nombreUsuario)
-    { 
-         Element raiz = document.getDocumentElement();
-         NodeList listaDeItems = raiz.getElementsByTagName("Usuario");
-         Node tag=null,datoContenido=null;
-         
-         boolean itemEncontrado=false,tituloCedula=false;
-         int contador=0;
-
-         for(int contadorItems=0; contadorItems<listaDeItems.getLength(); contadorItems++) 
-         {   
-             Node item = listaDeItems.item(contadorItems);
-             NodeList datosItem = item.getChildNodes();
-             for(int contadorTags=0; contadorTags<datosItem.getLength(); contadorTags++) 
-             {           
-                 tag = datosItem.item(contadorTags); 
-                 datoContenido = tag.getFirstChild();
-
-                 if(tag.getNodeName().equals("nombreUsuario") && datoContenido.getNodeValue().equals(""+nombreUsuario) )
-                 {
-                    itemEncontrado=true;     
-                 }
-                 if(itemEncontrado && contador<3)
-                 {
-                    arregloUsuarios[contador]=datoContenido.getNodeValue();
-                    contador++;
-                 }
-             }
-
-         }
-         return itemEncontrado;
-    }
-    public void agregarUsuario(String arregloInformacion[])
+    public void agregarEstudianteXML(String arregloInformacion[])
     {
         try{
             
-            raiz = document.createElement("Usuario");
-            principal = document.createElement("Usuario");
+            raiz = document.createElement("Estudiante");
+            principal = document.createElement("Estudiante");
             document.getDocumentElement().appendChild(raiz);
             
             Element valor0 = document.createElement("cedula");
             Text text0 = document.createTextNode(arregloInformacion[0]);
-            Element valor1 = document.createElement("nombreCompleto");
+            Element valor1 = document.createElement("nombre");
             Text text1 = document.createTextNode(arregloInformacion[1]);
-            Element valor2 = document.createElement("nombreUsuario");
+            Element valor2 = document.createElement("direccion");
             Text text2 = document.createTextNode(arregloInformacion[2]);
-            Element valor3 = document.createElement("contraseña");
-            Text text3 = document.createTextNode(arregloInformacion[3]);
-            Element valor4 = document.createElement("tipo");
-            Text text4 = document.createTextNode(arregloInformacion[4]);
             
             raiz.appendChild(valor0);
             valor0.appendChild(text0);
@@ -191,10 +150,6 @@ public class Metodos_XML_Usuarios  {
             valor1.appendChild(text1);
             raiz.appendChild(valor2);
             valor2.appendChild(text2);
-            raiz.appendChild(valor3);
-            valor3.appendChild(text3);
-            raiz.appendChild(valor4);
-            valor4.appendChild(text4);
             
             source = new DOMSource(document);
             result = new StreamResult(new java.io.File(nombreArchivo+".xml"));
@@ -206,13 +161,13 @@ public class Metodos_XML_Usuarios  {
             }
         catch (Exception e) 
         {
-            System.err.println("Error al guardar en XML_Usuarios: " + e);
+            System.err.println("Error al guardar en XML_Estudiantes: " + e);
         }
     }
-    public void modificarUsuario(String informacion[])
+    public void modificarEstudianteXML(String informacion[])
     { 
          Element raiz = document.getDocumentElement();
-         NodeList listaDeItems = raiz.getElementsByTagName("Usuario");
+         NodeList listaDeItems = raiz.getElementsByTagName("Estudiante");
          Node tag=null,datoContenido=null;
          boolean itemEncontrado=false;
          int contador=0;
@@ -230,7 +185,7 @@ public class Metodos_XML_Usuarios  {
                     {   
                        itemEncontrado=true;     
                     }
-                    if(itemEncontrado && contador<5)
+                    if(itemEncontrado && contador<3)
                     {
                         datoContenido.setNodeValue(informacion[contador]);                    
                         contador++;
@@ -246,13 +201,13 @@ public class Metodos_XML_Usuarios  {
         }
         catch (Exception e) 
         {
-            System.err.println("Error al modificar en XML_Usuarios: " + e);
+            System.err.println("Error al modificar en XML_Estudiantes: " + e);
         }
     }
-    public void eliminarUsuario(String informacion[])
+    public void eliminarEstudianteXML(String informacion[])
     { 
          Element raiz = document.getDocumentElement();
-         NodeList listaDeItems = raiz.getElementsByTagName("Usuario");
+         NodeList listaDeItems = raiz.getElementsByTagName("Estudiante");
          Node tag=null,datoContenido=null;
 
          try{
@@ -279,22 +234,15 @@ public class Metodos_XML_Usuarios  {
          }
         catch (Exception e) 
         {
-            System.err.println("Error al eliminar en XML_Usuarios: " + e);
+            System.err.println("Error al eliminar en XML_Estudiantes: " + e);
         }
     }
-    public int tamañoXML()
-    { 
-         Element raiz = document.getDocumentElement();
-         NodeList listaDeItems = raiz.getElementsByTagName("Usuario");
-         
-         return listaDeItems.getLength();
+    public String getNombreEstudianteXML()
+    {
+        return arregloInformacion[1];
     }
-    public String[] getArregloInformacion()
+    public String[] getArregloInformacionXML()
     {
         return this.arregloInformacion;
-    }
-    public String[] getArregloUsuarios()
-    {
-        return this.arregloUsuarios;
     }
 }

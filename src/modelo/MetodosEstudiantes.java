@@ -15,12 +15,12 @@ public class MetodosEstudiantes {
         archivoEstudiantes= new ArchivoEstudiantes();
         arrayEstudiantes= archivoEstudiantes.devolverInformacionCompleta();
     }
-    public void agregarEstudiante(String informacion[])
+    public void agregarEstudianteAP(String informacion[])
     {
         Estudiante temporal=new Estudiante(informacion[0], informacion[1], informacion[2]);
         arrayEstudiantes.add(temporal);
     }
-    public boolean consultarEstudiante(String cedula)
+    public boolean consultarEstudianteAP(String cedula)
     {
         boolean existe=false;
         
@@ -37,7 +37,7 @@ public class MetodosEstudiantes {
         return existe;
     
     }
-    public void modificarEstudiante(String arreglo[])
+    public void modificarEstudianteAP(String arreglo[])
     {
         for(int contador=0;contador<arrayEstudiantes.size();contador++)
         {
@@ -48,7 +48,7 @@ public class MetodosEstudiantes {
             }
         }
     }
-    public void eliminarEstudiante(String arreglo[])
+    public void eliminarEstudianteAP(String arreglo[])
     {
         for(int contador=0;contador<arrayEstudiantes.size();contador++)
         {
@@ -58,13 +58,13 @@ public class MetodosEstudiantes {
             }
         }
     }
-    public void escribirInformacionEnElArchivo()
+    public void escribirInformacionEnElArchivoAP()
     {
-      archivoEstudiantes.crearArchivo();
+      archivoEstudiantes.crearArchivoPlano();
       
       for(int contador=0;contador<arrayEstudiantes.size();contador++)
       {
-        archivoEstudiantes.escribirInformacionEnElArchivo(arrayEstudiantes.get(contador));
+        archivoEstudiantes.escribirInformacionEnElArchivoPlano(arrayEstudiantes.get(contador));
         
       }
     }

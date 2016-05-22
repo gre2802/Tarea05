@@ -18,35 +18,32 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jl_NombreCurso" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jl_Sigla" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jl_Horario" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jl_Creditos" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="103" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jt_Horario" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jl_Horario" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jt_Horario" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jl_NombreCurso" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jl_Sigla" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="jt_Sigla" min="-2" pref="108" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btn_ConsultaRapida" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jt_NombreCurso" min="-2" pref="172" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="jl_Creditos" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jcb_Creditos" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Component id="jcb_Creditos" min="-2" pref="171" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="31" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -79,7 +76,7 @@
                   <Component id="jl_Horario" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jt_Horario" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="173" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -87,6 +84,9 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jl_Sigla">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Consolas" size="18" style="3"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Sigla"/>
       </Properties>
     </Component>
@@ -94,6 +94,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jl_NombreCurso">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Consolas" size="18" style="3"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Nombre"/>
       </Properties>
     </Component>
@@ -101,6 +104,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jl_Creditos">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Consolas" size="18" style="3"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Cr&#xe9;ditos"/>
       </Properties>
     </Component>
@@ -121,6 +127,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jl_Horario">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Consolas" size="18" style="3"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Horario"/>
       </Properties>
     </Component>
@@ -128,9 +137,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="btn_ConsultaRapida">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\ADMIN1\Documents\UCR\Progra 2\img\buscar.png"/>
-        </Property>
         <Property name="actionCommand" type="java.lang.String" value="ConsultaRapida"/>
       </Properties>
     </Component>

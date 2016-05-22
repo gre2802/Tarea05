@@ -15,13 +15,13 @@ public class MetodosCursos {
         archivoCursos= new ArchivoCursos();
         arrayCursos= archivoCursos.devolverInformacionCompleta();
     }
-    public void agregarCurso(String informacion[])
+    public void agregarCursoAP(String informacion[])
     {
         Curso temporal=new Curso(informacion[0],informacion[1],Integer.parseInt(informacion[2]),informacion[3]);
         arrayCursos.add(temporal);
         
     }
-    public boolean consultarCurso(String sigla)
+    public boolean consultarCursoAP(String sigla)
     {
         boolean existe=false;
         
@@ -39,7 +39,7 @@ public class MetodosCursos {
         return existe;
     
     }
-    public void modificarCurso(String arreglo[])
+    public void modificarCursoAP(String arreglo[])
     {
         for(int contador=0;contador<arrayCursos.size();contador++)
         {
@@ -51,7 +51,7 @@ public class MetodosCursos {
             }
         }
     }
-    public void eliminarCurso(String arreglo[])
+    public void eliminarCursoAP(String arreglo[])
     {
         for(int contador=0;contador<arrayCursos.size();contador++)
         {
@@ -61,17 +61,17 @@ public class MetodosCursos {
             }
         }
     }
-    public void escribirInformacionEnElArchivo()
+    public void escribirInformacionEnElArchivoAP()
     {
-      archivoCursos.crearArchivo();
+      archivoCursos.crearArchivoPlano();
       
       for(int contador=0;contador<arrayCursos.size();contador++)
       {
-        archivoCursos.escribirInformacionEnElArchivo(arrayCursos.get(contador));
+        archivoCursos.escribirInformacionEnElArchivoPlano(arrayCursos.get(contador));
         
       }
     }
-    public String[] getArregloInformacion()
+    public String[] getArregloInformacionAP()
     {
         return this.arregloInformacionConsultada;
     }

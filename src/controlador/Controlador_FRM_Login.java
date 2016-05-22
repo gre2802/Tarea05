@@ -4,21 +4,21 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import modelo.ConexionBD;
-import modelo.Metodos_XML_Usuarios;
-import vista.FRM_Inicio;
+import modelo.MetodosXML_Usuarios;
+import vista.FRM_Iniciar;
 import vista.FRM_Login;
-import vista.FRM_MantenimientoUsuarios;
-import vista.FRM_VentanaPrincipal;
+import vista.FRM_Usuarios;
+import vista.FRM_Ventana;
 
 public class Controlador_FRM_Login implements ActionListener {
 
     FRM_Login frm_Login;
-    FRM_Inicio frm_Inicio;
-    FRM_VentanaPrincipal frm_VentanaPrincipal;
-    Metodos_XML_Usuarios metodos_XML_Usuarios;
+    FRM_Iniciar frm_Inicio;
+    FRM_Ventana frm_VentanaPrincipal;
+    MetodosXML_Usuarios metodos_XML_Usuarios;
     ConexionBD conexion;
     
-    public Controlador_FRM_Login(FRM_Inicio frm_Inicio,FRM_Login frm_Login,FRM_VentanaPrincipal frm_VentanaPrincipal,ConexionBD conexion,FRM_MantenimientoUsuarios frm_MantenimientoUsuarios) 
+    public Controlador_FRM_Login(FRM_Iniciar frm_Inicio,FRM_Login frm_Login,FRM_Ventana frm_VentanaPrincipal,ConexionBD conexion,FRM_Usuarios frm_MantenimientoUsuarios) 
     {
         this.frm_Inicio=frm_Inicio;
         this.frm_Login=frm_Login;
@@ -31,24 +31,24 @@ public class Controlador_FRM_Login implements ActionListener {
     {
         if(e.getActionCommand().equals("Ingresar"))
         {
-            if(frm_Inicio.fuente.equals("AP"))
+            if(frm_Inicio.opcion.equals("Archivos"))
                 ingresarAP();
             
-            if(frm_Inicio.fuente.equals("BD"))
+            if(frm_Inicio.opcion.equals("Base"))
                 ingresarBD();
             
-            if(frm_Inicio.fuente.equals("XML"))
+            if(frm_Inicio.opcion.equals("XML"))
                 ingresarXML();
         }
         if(e.getActionCommand().equals("Salir"))
         {
-            if(frm_Inicio.fuente.equals("AP"))
+            if(frm_Inicio.opcion.equals("Archivos"))
                 salirAP();
             
-            if(frm_Inicio.fuente.equals("BD"))
+            if(frm_Inicio.opcion.equals("Base"))
                 salirBD();
             
-            if(frm_Inicio.fuente.equals("XML"))
+            if(frm_Inicio.opcion.equals("XML"))
                 salirXML();
         }
     }
@@ -76,10 +76,9 @@ public class Controlador_FRM_Login implements ActionListener {
             this.frm_VentanaPrincipal.habilitarMatricula();
         }
     }
-    /// Metodos AP ///
     public void ingresarAP()
     {
-        if(frm_Login.metodosUsuarios.consultarUsuarioRegistrado(frm_Login.devolverNombreUsuario()))
+        if(frm_Login.metodosUsuarios.consultarUsuarioRegistradoAP(frm_Login.devolverNombreUsuario()))
         {
             if(frm_Login.devolverContraseña().equals(frm_Login.metodosUsuarios.getArregloInformacion()[2]))
             {
@@ -112,7 +111,6 @@ public class Controlador_FRM_Login implements ActionListener {
         this.frm_VentanaPrincipal.deshabilitarMatricula();
         frm_Login.setVisible(false);
     }
-    /// Metodos BD ///
     public void ingresarBD()
     {
         if(conexion.consultarUsuarioRegistrado(frm_Login.devolverNombreUsuario()))
@@ -148,14 +146,13 @@ public class Controlador_FRM_Login implements ActionListener {
         this.frm_VentanaPrincipal.deshabilitarMatricula();
         frm_Login.setVisible(false);
     }
-    /// Metodos XML ///
     public void ingresarXML()
     {
-        if(metodos_XML_Usuarios.consultarUsuarioRegistrado(frm_Login.devolverNombreUsuario()))
+        if(metodos_XML_Usuarios.consultarUsuarioRegistradoXML(frm_Login.devolverNombreUsuario()))
         {
-            if(frm_Login.devolverContraseña().equals(metodos_XML_Usuarios.getArregloUsuarios()[1]))
+            if(frm_Login.devolverContraseña().equals(metodos_XML_Usuarios.getArregloUsuariosXML()[1]))
             {
-                habilitarOpciones(metodos_XML_Usuarios.getArregloUsuarios()[2]);
+                habilitarOpciones(metodos_XML_Usuarios.getArregloUsuariosXML()[2]);
                 frm_Login.mostrarMensaje("Sesión Iniciada");
                 frm_Login.setVisible(false);
                 frm_Login.deshabilitarIngreso();

@@ -17,11 +17,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
-import vista.FRM_Matricula;
+import vista.FRM_Cursos;
 
-public class Metodos_XML_Matricula 
-{
-    FRM_Matricula frm_Matricula;
+public class MetodosXML_Cursos {
+    FRM_Cursos frm_MantenimientoCursos;
     DocumentBuilderFactory factory;
     DocumentBuilder builder;
     DOMImplementation implementation;
@@ -35,27 +34,25 @@ public class Metodos_XML_Matricula
     Result console;
     Transformer transformer;
     String nombreArchivo;
-    private ArrayList arrayCodigos;
     
-    public Metodos_XML_Matricula(FRM_Matricula frm_Matricula)
+    public MetodosXML_Cursos(FRM_Cursos frm_MantenimientoCursos)
     {
-        this.frm_Matricula=frm_Matricula;
-        nombreArchivo="Matriculas";
+        this.frm_MantenimientoCursos=frm_MantenimientoCursos;
+        nombreArchivo="Cursos";
         
         if(cargarXML())
         {
-            System.out.println("Ya existe un archivo XML_Matriculas creado, ya fue cargado y puede proceder a utilizarlo");
+            System.out.println("Ya existe un archivo XML_Cursos creado, ya fue cargado y puede proceder a utilizarlo");
         }
         else
         {
             crearXML();
-            System.out.println("No existía un archivo XML_Matriculas creado, ya fue creado y puede proceder a utilizarlo");
+            System.out.println("No existía un archivo XML_Cursos creado, ya fue creado y puede proceder a utilizarlo");
         }
         
         arregloInformacion=new String[4];
         titulos = new ArrayList();
         valores = new ArrayList();
-        arrayCodigos= new ArrayList();
     }
     public void crearXML()
     {
@@ -76,7 +73,7 @@ public class Metodos_XML_Matricula
             transformer.transform(source, console);
  
         } catch (Exception e) {
-            System.err.println("Error al crear el archivo XML_Matriculas: " + e);
+            System.err.println("Error al crear el archivo XML_Cursos: " + e);
         }
     }
     public boolean cargarXML()
@@ -91,22 +88,22 @@ public class Metodos_XML_Matricula
             document.getDocumentElement().normalize();
             cargo=true;
             
-            NodeList nList = document.getElementsByTagName("Matricula");
+            NodeList nList = document.getElementsByTagName("Curso");
             Node nNode = nList.item(0);
             raiz = (Element) nNode;
                 
         } catch (Exception e) {
-            System.out.println("Error al cargar el archivo XML_Matriculas"+e);
+            System.out.println("Error al cargar el archivo XML_Cursos"+e);
         }
         return cargo;
     }
-    public boolean consultarMatricula(String codigo)
+    public boolean consultarCursoXML(String sigla)
     { 
          Element raiz = document.getDocumentElement();
-         NodeList listaDeItems = raiz.getElementsByTagName("Matricula");
+         NodeList listaDeItems = raiz.getElementsByTagName("Curso");
          Node tag=null,datoContenido=null;
 
-         boolean itemEncontrado=false,encontrado=false;
+         boolean itemEncontrado=false;
          int contador=0;
 
          for(int contadorItems=0; contadorItems<listaDeItems.getLength(); contadorItems++) 
@@ -118,10 +115,9 @@ public class Metodos_XML_Matricula
                  tag = datosItem.item(contadorTags); 
                  datoContenido = tag.getFirstChild();
 
-                 if(tag.getNodeName().equals("codigo") && datoContenido.getNodeValue().equals(""+codigo))
+                 if(tag.getNodeName().equals("sigla") && datoContenido.getNodeValue().equals(""+sigla))
                  {
                     itemEncontrado=true;
-                    encontrado=true;
                  }
                  if(itemEncontrado && contador<4)
                  {
@@ -129,27 +125,25 @@ public class Metodos_XML_Matricula
                     contador++;
                  }
              }
-             frm_Matricula.agregarInformacionTabla(arregloInformacion);
-             contador=0;
-             itemEncontrado=false;
+
          }
-         return encontrado;
+         return itemEncontrado;
     }
-    public void agregarMatricula(String arregloInformacion[])
+    public void agregarCursoXML(String arregloInformacion[])
     {
         try{
             
-            raiz = document.createElement("Matricula");
-            principal = document.createElement("Matricula");
+            raiz = document.createElement("Curso");
+            principal = document.createElement("Curso");
             document.getDocumentElement().appendChild(raiz);
             
-            Element valor0 = document.createElement("codigo");
+            Element valor0 = document.createElement("sigla");
             Text text0 = document.createTextNode(arregloInformacion[0]);
-            Element valor1 = document.createElement("cedula");
+            Element valor1 = document.createElement("nombreCurso");
             Text text1 = document.createTextNode(arregloInformacion[1]);
-            Element valor2 = document.createElement("nombreEstudiante");
+            Element valor2 = document.createElement("creditos");
             Text text2 = document.createTextNode(arregloInformacion[2]);
-            Element valor3 = document.createElement("sigla");
+            Element valor3 = document.createElement("horario");
             Text text3 = document.createTextNode(arregloInformacion[3]);
             
             raiz.appendChild(valor0);
@@ -167,19 +161,57 @@ public class Metodos_XML_Matricula
             transformer = TransformerFactory.newInstance().newTransformer();
             transformer.transform(source, result);
             transformer.transform(source, console);
-            arrayCodigos.add(1);
             
             }
         catch (Exception e) 
         {
-            System.err.println("Error al guardar en XML_Matriculas: " + e);
+            System.err.println("Error al guardar en XML_Cursos: " + e);
         }
     }
-    public void eliminarMatricula(String informacion[])
+    public void modificarCursoXML(String informacion[])
     { 
-        System.out.println(informacion[0]+"  "+informacion[1]);
          Element raiz = document.getDocumentElement();
-         NodeList listaDeItems = raiz.getElementsByTagName("Matricula");
+         NodeList listaDeItems = raiz.getElementsByTagName("Curso");
+         Node tag=null,datoContenido=null;
+         boolean itemEncontrado=false;
+         int contador=0;
+         try
+         {
+            for(int contadorItems=0; contadorItems<listaDeItems.getLength(); contadorItems++) 
+            {   
+                Node item = listaDeItems.item(contadorItems);
+                NodeList datosItem = item.getChildNodes();
+                for(int contadorTags=0; contadorTags<datosItem.getLength(); contadorTags++) 
+                {   
+                    tag = datosItem.item(contadorTags); 
+                    datoContenido = tag.getFirstChild();
+                    if(tag.getNodeName().equals("sigla") && datoContenido.getNodeValue().equals(""+informacion[0]))
+                    {   
+                       itemEncontrado=true;
+                    }
+                    if(itemEncontrado && contador<4)
+                    {
+                        datoContenido.setNodeValue(informacion[contador]);                    
+                        contador++;
+                    }
+                }
+            }
+            source = new DOMSource(document);
+            result = new StreamResult(new java.io.File(nombreArchivo+".xml"));
+            console = new StreamResult(System.out);
+            transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.transform(source, result);
+            transformer.transform(source, console);
+        }
+        catch (Exception e) 
+        {
+            System.err.println("Error al modificar en XML_Cursos: " + e);
+        }
+    }
+    public void eliminarCursoXML(String informacion[])
+    { 
+         Element raiz = document.getDocumentElement();
+         NodeList listaDeItems = raiz.getElementsByTagName("Curso");
          Node tag=null,datoContenido=null;
 
          try{
@@ -191,62 +223,30 @@ public class Metodos_XML_Matricula
                 {
                     tag = datosItem.item(contadorTags); 
                     datoContenido = tag.getFirstChild();
-                    if(tag.getNodeName().equals("codigo") && datoContenido.getNodeValue().equals(""+informacion[0]))
+                    if(tag.getNodeName().equals("sigla") && datoContenido.getNodeValue().equals(""+informacion[0]))
                     {
-                        tag = datosItem.item(contadorTags+3); 
-                        datoContenido = tag.getLastChild();
-                        if(tag.getNodeName().equals("sigla") && datoContenido.getNodeValue().equals(""+informacion[1]))
-                        {
-                            raiz.removeChild(item);
-                            source = new DOMSource(document);
-                            result = new StreamResult(new java.io.File(nombreArchivo+".xml"));
-                            console = new StreamResult(System.out);
-                            transformer = TransformerFactory.newInstance().newTransformer();
-                            transformer.transform(source, result);
-                            transformer.transform(source, console);
-                        }
+                       raiz.removeChild(item);
+                       source = new DOMSource(document);
+                       result = new StreamResult(new java.io.File(nombreArchivo+".xml"));
+                       console = new StreamResult(System.out);
+                       transformer = TransformerFactory.newInstance().newTransformer();
+                       transformer.transform(source, result);
+                       transformer.transform(source, console);
                     } 
                 }
             }
          }
         catch (Exception e) 
         {
-            System.err.println("Error al eliminar en XML_Matriculas: " + e);
+            System.err.println("Error al eliminar en XML_Cursos: " + e);
         }
     }
-    public String devolverCodigo()
+    public String getNombreCursoXML()
     {
-        Element raiz = document.getDocumentElement();
-        NodeList listaDeItems = raiz.getElementsByTagName("Matricula");
-        Node tag=null,datoContenido=null;
-        int numero=0;
-        String codigo="0000";
-
-        for(int contadorItems=0; contadorItems<listaDeItems.getLength(); contadorItems++) 
-        {
-            Node item = listaDeItems.item(contadorItems);
-            NodeList datosItem = item.getChildNodes();
-            for(int contadorTags=0; contadorTags<datosItem.getLength(); contadorTags++) 
-            {
-                tag = datosItem.item(contadorTags); 
-                datoContenido = tag.getFirstChild();
-                if(tag.getNodeName().equals("codigo") && datoContenido.getNodeValue()!=codigo)
-                {
-                    numero++;
-                    codigo=datoContenido.getNodeValue();
-                }
-            }
-            
-        }
-        if(numero==0)
-        {
-            codigo+=1;
-        }
-        else 
-        {
-            codigo="0000"+numero;
-        }
-        codigo=codigo.substring(codigo.length()-5, codigo.length());
-        return codigo;
+        return arregloInformacion[1];
+    }
+    public String[] getArregloInformacionXML()
+    {
+        return this.arregloInformacion;
     }
 }

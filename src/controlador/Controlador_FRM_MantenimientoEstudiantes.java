@@ -5,35 +5,35 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import modelo.ConexionBD;
 import modelo.MetodosEstudiantes;
-import modelo.Metodos_XML_Estudiantes;
-import vista.FRM_Inicio;
-import vista.FRM_MantenimientoEstudiantes;
+import modelo.MetodosXML_Estudiantes;
+import vista.FRM_Iniciar;
+import vista.FRM_Estudiantes;
 
 public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener {
     
     public MetodosEstudiantes metodosEstudiantes;
-    public Metodos_XML_Estudiantes metodos_XML_Estudiantes;
-    FRM_Inicio frm_Inicio;
-    FRM_MantenimientoEstudiantes frm_MantenimientoEstudiantes;
+    public MetodosXML_Estudiantes metodos_XML_Estudiantes;
+    FRM_Iniciar frm_Inicio;
+    FRM_Estudiantes frm_MantenimientoEstudiantes;
     ConexionBD conexion;
     
-    public Controlador_FRM_MantenimientoEstudiantes(FRM_Inicio frm_Inicio,FRM_MantenimientoEstudiantes frm_MantenimientoEstudiantes,ConexionBD conexion)
+    public Controlador_FRM_MantenimientoEstudiantes(FRM_Iniciar frm_Inicio,FRM_Estudiantes frm_MantenimientoEstudiantes,ConexionBD conexion)
     {
         this.frm_Inicio=frm_Inicio;
         
-        if(frm_Inicio.fuente.equals("AP"))
+        if(frm_Inicio.opcion.equals("Archivos"))
         {
             metodosEstudiantes= new MetodosEstudiantes();
             this.frm_MantenimientoEstudiantes=frm_MantenimientoEstudiantes;
         }
-        if(frm_Inicio.fuente.equals("BD"))
+        if(frm_Inicio.opcion.equals("BD"))
         {
             this.frm_MantenimientoEstudiantes=frm_MantenimientoEstudiantes;
             this.conexion=conexion;
         }
-        if(frm_Inicio.fuente.equals("XML"))
+        if(frm_Inicio.opcion.equals("XML"))
         {
-            metodos_XML_Estudiantes= new Metodos_XML_Estudiantes(frm_MantenimientoEstudiantes);
+            metodos_XML_Estudiantes= new MetodosXML_Estudiantes(frm_MantenimientoEstudiantes);
             this.frm_MantenimientoEstudiantes=frm_MantenimientoEstudiantes;
         }
     }
@@ -43,55 +43,54 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener 
         
         if(e.getActionCommand().equals("Agregar"))
         {
-            if(frm_Inicio.fuente.equals("AP"))
+            if(frm_Inicio.opcion.equals("Archivos"))
                 agregarAP();
             
-            if(frm_Inicio.fuente.equals("BD"))
+            if(frm_Inicio.opcion.equals("Base"))
                 agregarBD();
             
-            if(frm_Inicio.fuente.equals("XML"))
+            if(frm_Inicio.opcion.equals("XML"))
                 agregarXML();
         }
         if(e.getActionCommand().equals("Consultar") || e.getActionCommand().equals("Consulta_Rapida"))
         {   
-            if(frm_Inicio.fuente.equals("AP"))
+            if(frm_Inicio.opcion.equals("Archivos"))
                 buscarAP();
             
-            if(frm_Inicio.fuente.equals("BD"))
+            if(frm_Inicio.opcion.equals("Base"))
                 buscarBD();
             
-            if(frm_Inicio.fuente.equals("XML"))
+            if(frm_Inicio.opcion.equals("XML"))
                 buscarXML();
         }
         if(e.getActionCommand().equals("Modificar"))
         {
-            if(frm_Inicio.fuente.equals("AP"))
+            if(frm_Inicio.opcion.equals("Archivos"))
                 modificarAP();
             
-            if(frm_Inicio.fuente.equals("BD"))
+            if(frm_Inicio.opcion.equals("Base"))
                 modificarBD();
             
-            if(frm_Inicio.fuente.equals("XML"))
+            if(frm_Inicio.opcion.equals("XML"))
                 modificarXML();
         }
         if(e.getActionCommand().equals("Eliminar"))
         {
-            if(frm_Inicio.fuente.equals("AP"))
+            if(frm_Inicio.opcion.equals("Archivos"))
                 eliminarAP();
             
-            if(frm_Inicio.fuente.equals("BD"))
+            if(frm_Inicio.opcion.equals("Base"))
                 eliminarBD();
             
-            if(frm_Inicio.fuente.equals("XML"))
+            if(frm_Inicio.opcion.equals("XML"))
                 eliminarXML();
         }
     }
-    /// Metodos AP ///
     public void buscarAP()
     {
         if(frm_MantenimientoEstudiantes.devolverCedula()!=null)
         {
-            if(metodosEstudiantes.consultarEstudiante(frm_MantenimientoEstudiantes.devolverCedula()))
+            if(metodosEstudiantes.consultarEstudianteAP(frm_MantenimientoEstudiantes.devolverCedula()))
             {
                 frm_MantenimientoEstudiantes.mostrarInformacion(metodosEstudiantes.getArregloInformacion());
                 frm_MantenimientoEstudiantes.habilitarEdicion();
@@ -107,7 +106,7 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener 
     {
         if(frm_MantenimientoEstudiantes.devolverInformacion()!=null)
         {
-            metodosEstudiantes.agregarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+            metodosEstudiantes.agregarEstudianteAP(frm_MantenimientoEstudiantes.devolverInformacion());
             frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue registrado de forma correcta");
             frm_MantenimientoEstudiantes.resetearGUI();
         }
@@ -116,7 +115,7 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener 
     {
         if(frm_MantenimientoEstudiantes.devolverInformacion()!=null)
         {
-            metodosEstudiantes.modificarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+            metodosEstudiantes.modificarEstudianteAP(frm_MantenimientoEstudiantes.devolverInformacion());
             frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue modificado de forma correcta.");
             frm_MantenimientoEstudiantes.resetearGUI();
         }
@@ -125,12 +124,11 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener 
     {
         if(frm_MantenimientoEstudiantes.devolverInformacion()!=null)
         {
-            metodosEstudiantes.eliminarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+            metodosEstudiantes.eliminarEstudianteAP(frm_MantenimientoEstudiantes.devolverInformacion());
             frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue eliminado de forma correcta.");
             frm_MantenimientoEstudiantes.resetearGUI();
         }
     }
-    /// Metodos BD ///
     public void buscarBD()
     {
         if(frm_MantenimientoEstudiantes.devolverCedula()!=null)
@@ -174,14 +172,13 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener 
             frm_MantenimientoEstudiantes.resetearGUI();
         }
     }
-    /// Metodos XML ///
     public void buscarXML()
     {
         if(frm_MantenimientoEstudiantes.devolverCedula()!=null)
         {
-            if(metodos_XML_Estudiantes.consultarEstudiante(frm_MantenimientoEstudiantes.devolverCedula()))
+            if(metodos_XML_Estudiantes.consultarEstudianteXML(frm_MantenimientoEstudiantes.devolverCedula()))
             {
-                frm_MantenimientoEstudiantes.mostrarInformacionXML(metodos_XML_Estudiantes.getArregloInformacion());
+                frm_MantenimientoEstudiantes.mostrarInformacionXML(metodos_XML_Estudiantes.getArregloInformacionXML());
                 frm_MantenimientoEstudiantes.habilitarEdicion();
             }
             else
@@ -195,7 +192,7 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener 
     {
         if(frm_MantenimientoEstudiantes.devolverInformacion()!=null)
         {
-            metodos_XML_Estudiantes.agregarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+            metodos_XML_Estudiantes.agregarEstudianteXML(frm_MantenimientoEstudiantes.devolverInformacion());
             frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue registrado de forma correcta");
             frm_MantenimientoEstudiantes.resetearGUI();
         }
@@ -204,7 +201,7 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener 
     {
         if(frm_MantenimientoEstudiantes.devolverInformacion()!=null)
         {
-            metodos_XML_Estudiantes.modificarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+            metodos_XML_Estudiantes.modificarEstudianteXML(frm_MantenimientoEstudiantes.devolverInformacion());
             frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue modificado de forma correcta.");
             frm_MantenimientoEstudiantes.resetearGUI();
         }
@@ -213,7 +210,7 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener 
     {
         if(frm_MantenimientoEstudiantes.devolverInformacion()!=null)
         {
-            metodos_XML_Estudiantes.eliminarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+            metodos_XML_Estudiantes.eliminarEstudianteXML(frm_MantenimientoEstudiantes.devolverInformacion());
             frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue eliminado de forma correcta.");
             frm_MantenimientoEstudiantes.resetearGUI();
         }

@@ -3,14 +3,14 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import vista.FRM_Inicio;
+import vista.FRM_Iniciar;
 
-public class Controlador_FRM_Inicio implements ActionListener {
+public class Controlador_FRM_Iniciar implements ActionListener {
     
-    FRM_Inicio frm_Inicio;
-    private String fuente="";
+    FRM_Iniciar frm_Inicio;
+    private String opcion="";
     
-    public Controlador_FRM_Inicio(FRM_Inicio frm_Inicio) 
+    public Controlador_FRM_Iniciar(FRM_Iniciar frm_Inicio) 
     {
         this.frm_Inicio=frm_Inicio;
     }
@@ -18,22 +18,22 @@ public class Controlador_FRM_Inicio implements ActionListener {
     {
         if(e.getActionCommand().equals("Base de Datos"))
         {
-            fuente="BD";
+            opcion="Base";
             frm_Inicio.habilitarIniciar();
         }
         if(e.getActionCommand().equals("XML"))
         {
-            fuente="XML";
+            opcion="XML";
             frm_Inicio.habilitarIniciar();
         }
         if(e.getActionCommand().equals("Archivos Planos"))
         {
-            fuente="AP";
+            opcion="Archivos";
             frm_Inicio.habilitarIniciar();
         }
         if(e.getActionCommand().equals("Iniciar"))
         {
-            frm_Inicio.fuenteSeleccionada(fuente);
+            frm_Inicio.opcionSeleccionada(opcion);
             frm_Inicio.setVisible(false);
         }
     }

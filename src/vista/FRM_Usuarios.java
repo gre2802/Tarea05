@@ -4,16 +4,16 @@ package vista;
 import controlador.Controlador_FRM_MantenimientoUsuarios;
 import javax.swing.JOptionPane;
 import modelo.ConexionBD;
-import modelo.Verificador;
+import modelo.Verificador_XML;
 
-public class FRM_MantenimientoUsuarios extends javax.swing.JFrame {
+public class FRM_Usuarios extends javax.swing.JFrame {
 
     public Controlador_FRM_MantenimientoUsuarios controlador_FRM_MantenimientoUsuarios;
-    FRM_Inicio frm_Inicio;
-    FRM_VentanaPrincipal frm_VentanaPrincipal;
-    Verificador verificador;
+    FRM_Iniciar frm_Inicio;
+    FRM_Ventana frm_VentanaPrincipal;
+    Verificador_XML verificador;
     
-    public FRM_MantenimientoUsuarios(FRM_Inicio frm_Inicio,FRM_VentanaPrincipal frm_VentanaPrincipal,ConexionBD conexion,Verificador verificador) {
+    public FRM_Usuarios(FRM_Iniciar frm_Inicio,FRM_Ventana frm_VentanaPrincipal,ConexionBD conexion,Verificador_XML verificador) {
         super("Mantenimiento de Usuarios");
         initComponents();
         this.setLocation(250, 200);
@@ -37,7 +37,7 @@ public class FRM_MantenimientoUsuarios extends javax.swing.JFrame {
     }
     public void mostrarInformacion(String arreglo[])
     {
-        if(frm_Inicio.fuente.equals("XML"))
+        if(frm_Inicio.opcion.equals("XML"))
         {
             this.jt_NombreCompleto.setText(arreglo[1]);
             this.jt_NombreUsuario.setText(arreglo[2]);
@@ -299,28 +299,28 @@ public class FRM_MantenimientoUsuarios extends javax.swing.JFrame {
         
         if(evt.getKeyCode()==10)
         {
-            if(frm_Inicio.fuente.equals("AP"))
+            if(frm_Inicio.opcion.equals("Archivos"))
                this.controlador_FRM_MantenimientoUsuarios.buscarAP();
             
-            if(frm_Inicio.fuente.equals("BD"))
+            if(frm_Inicio.opcion.equals("Base"))
                this.controlador_FRM_MantenimientoUsuarios.buscarBD();
         }
     }//GEN-LAST:event_jt_CedulaKeyPressed
 
     private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
         
-        if(frm_Inicio.fuente.equals("AP"))
+        if(frm_Inicio.opcion.equals("Archivos"))
         {
-            this.controlador_FRM_MantenimientoUsuarios.metodosUsuarios.escribirInformacionEnElArchivo();
+            this.controlador_FRM_MantenimientoUsuarios.metodosUsuarios.escribirInformacionEnElArchivoAP();
             this.frm_VentanaPrincipal.show();
             resetearGUI();
         }
-        if(frm_Inicio.fuente.equals("BD"))
+        if(frm_Inicio.opcion.equals("Base"))
         {
             this.frm_VentanaPrincipal.show();
             resetearGUI();
         }
-        if(frm_Inicio.fuente.equals("XML"))
+        if(frm_Inicio.opcion.equals("XML"))
         {
             this.frm_VentanaPrincipal.show();
             resetearGUI();

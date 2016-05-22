@@ -5,35 +5,35 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import modelo.ConexionBD;
 import modelo.MetodosCursos;
-import modelo.Metodos_XML_Cursos;
-import vista.FRM_Inicio;
-import vista.FRM_MantenimientoCursos;
+import modelo.MetodosXML_Cursos;
+import vista.FRM_Iniciar;
+import vista.FRM_Cursos;
 
 public class Controlador_FRM_MantenimientoCursos implements ActionListener {
     
-    FRM_MantenimientoCursos frm_MantenimientoCursos;
-    FRM_Inicio frm_Inicio;
+    FRM_Cursos frm_MantenimientoCursos;
+    FRM_Iniciar frm_Inicio;
     public MetodosCursos metodosCursos;
-    public Metodos_XML_Cursos metodos_XML_Cursos;
+    public MetodosXML_Cursos metodos_XML_Cursos;
     ConexionBD conexion;
     
-    public Controlador_FRM_MantenimientoCursos(FRM_Inicio frm_Inicio,FRM_MantenimientoCursos frm_MantenimientoCursos,ConexionBD conexion)
+    public Controlador_FRM_MantenimientoCursos(FRM_Iniciar frm_Inicio,FRM_Cursos frm_MantenimientoCursos,ConexionBD conexion)
     {
         this.frm_Inicio=frm_Inicio;
         
-        if(frm_Inicio.fuente.equals("AP"))
+        if(frm_Inicio.opcion.equals("Archivos"))
         {
             metodosCursos= new MetodosCursos();
             this.frm_MantenimientoCursos=frm_MantenimientoCursos;
         }
-        if(frm_Inicio.fuente.equals("BD"))
+        if(frm_Inicio.opcion.equals("Base"))
         {
             this.conexion=conexion;
             this.frm_MantenimientoCursos=frm_MantenimientoCursos;
         }
-        if(frm_Inicio.fuente.equals("XML"))
+        if(frm_Inicio.opcion.equals("XML"))
         {
-            metodos_XML_Cursos= new Metodos_XML_Cursos(frm_MantenimientoCursos);
+            metodos_XML_Cursos= new MetodosXML_Cursos(frm_MantenimientoCursos);
             this.frm_MantenimientoCursos=frm_MantenimientoCursos;
         }
     }
@@ -42,57 +42,56 @@ public class Controlador_FRM_MantenimientoCursos implements ActionListener {
     {
         if(evento.getActionCommand().equals("Agregar"))
         {
-            if(frm_Inicio.fuente.equals("AP"))
+            if(frm_Inicio.opcion.equals("Archivos"))
                 agregarAP();
             
-            if(frm_Inicio.fuente.equals("BD"))
+            if(frm_Inicio.opcion.equals("Base"))
                 agregarBD();
             
-            if(frm_Inicio.fuente.equals("XML"))
+            if(frm_Inicio.opcion.equals("XML"))
                 agregarXML();
         }
         if(evento.getActionCommand().equals("Consultar") || evento.getActionCommand().equals("ConsultaRapida"))
         {
-            if(frm_Inicio.fuente.equals("AP"))
+            if(frm_Inicio.opcion.equals("Archivos"))
                 buscarAP();
             
-            if(frm_Inicio.fuente.equals("BD"))
+            if(frm_Inicio.opcion.equals("Base"))
                 buscarBD();
             
-            if(frm_Inicio.fuente.equals("XML"))
+            if(frm_Inicio.opcion.equals("XML"))
                 buscarXML();
         }
         if(evento.getActionCommand().equals("Modificar"))
         {
-            if(frm_Inicio.fuente.equals("AP"))
+            if(frm_Inicio.opcion.equals("Archivos"))
                 modificarAP();
             
-            if(frm_Inicio.fuente.equals("BD"))
+            if(frm_Inicio.opcion.equals("Base"))
                 modificarBD();
             
-            if(frm_Inicio.fuente.equals("XML"))
+            if(frm_Inicio.opcion.equals("XML"))
                 modificarXML();
         }
         if(evento.getActionCommand().equals("Eliminar"))
         {
-            if(frm_Inicio.fuente.equals("AP"))
+            if(frm_Inicio.opcion.equals("Archivos"))
                 eliminarAP();
             
-            if(frm_Inicio.fuente.equals("BD"))
+            if(frm_Inicio.opcion.equals("Base"))
                 eliminarBD();
             
-            if(frm_Inicio.fuente.equals("XML"))
+            if(frm_Inicio.opcion.equals("XML"))
                 eliminarXML();
         }
     }
-    /// Metodos AP ///
     public void buscarAP() 
     {
         if(frm_MantenimientoCursos.devolverSigla()!=null)
         {
-            if(metodosCursos.consultarCurso(frm_MantenimientoCursos.devolverSigla()))
+            if(metodosCursos.consultarCursoAP(frm_MantenimientoCursos.devolverSigla()))
             {
-                frm_MantenimientoCursos.mostrarInformacion(metodosCursos.getArregloInformacion());
+                frm_MantenimientoCursos.mostrarInformacion(metodosCursos.getArregloInformacionAP());
                 frm_MantenimientoCursos.habilitarEdicion();
             }
             else
@@ -106,7 +105,7 @@ public class Controlador_FRM_MantenimientoCursos implements ActionListener {
     {
         if(frm_MantenimientoCursos.devolverInformacion()!=null)
         {
-            metodosCursos.agregarCurso(frm_MantenimientoCursos.devolverInformacion());
+            metodosCursos.agregarCursoAP(frm_MantenimientoCursos.devolverInformacion());
             frm_MantenimientoCursos.mostrarMensaje("El curso fue registrado de forma correcta");
             frm_MantenimientoCursos.resetearGUI();
         }
@@ -115,7 +114,7 @@ public class Controlador_FRM_MantenimientoCursos implements ActionListener {
     {
         if(frm_MantenimientoCursos.devolverInformacion()!=null)
         {
-            metodosCursos.modificarCurso(frm_MantenimientoCursos.devolverInformacion());
+            metodosCursos.modificarCursoAP(frm_MantenimientoCursos.devolverInformacion());
             frm_MantenimientoCursos.mostrarMensaje("El curso fue modificado de forma correcta.");
             frm_MantenimientoCursos.resetearGUI();
         }
@@ -124,12 +123,11 @@ public class Controlador_FRM_MantenimientoCursos implements ActionListener {
     {
         if(frm_MantenimientoCursos.devolverInformacion()!=null)
         {
-            metodosCursos.eliminarCurso(frm_MantenimientoCursos.devolverInformacion());
+            metodosCursos.eliminarCursoAP(frm_MantenimientoCursos.devolverInformacion());
             frm_MantenimientoCursos.mostrarMensaje("El curso fue eliminado de forma correcta.");
             frm_MantenimientoCursos.resetearGUI();
         }
     }
-    /// Metodos BD///
     public void buscarBD() 
     {
         if(frm_MantenimientoCursos.devolverSigla()!=null)
@@ -173,14 +171,13 @@ public class Controlador_FRM_MantenimientoCursos implements ActionListener {
             frm_MantenimientoCursos.resetearGUI();
         }
     }
-    /// Metodos XML ///
     public void buscarXML() 
     {
         if(frm_MantenimientoCursos.devolverSigla()!=null)
         {
-            if(metodos_XML_Cursos.consultarCurso(frm_MantenimientoCursos.devolverSigla()))
+            if(metodos_XML_Cursos.consultarCursoXML(frm_MantenimientoCursos.devolverSigla()))
             {
-                frm_MantenimientoCursos.mostrarInformacionXML(metodos_XML_Cursos.getArregloInformacion());
+                frm_MantenimientoCursos.mostrarInformacionXML(metodos_XML_Cursos.getArregloInformacionXML());
                 frm_MantenimientoCursos.habilitarEdicion();
             }
             else
@@ -194,7 +191,7 @@ public class Controlador_FRM_MantenimientoCursos implements ActionListener {
     {
         if(frm_MantenimientoCursos.devolverInformacion()!=null)
         {
-            metodos_XML_Cursos.agregarCurso(frm_MantenimientoCursos.devolverInformacion());
+            metodos_XML_Cursos.agregarCursoXML(frm_MantenimientoCursos.devolverInformacion());
             frm_MantenimientoCursos.mostrarMensaje("El curso fue registrado de forma correcta");
             frm_MantenimientoCursos.resetearGUI();
         }
@@ -203,7 +200,7 @@ public class Controlador_FRM_MantenimientoCursos implements ActionListener {
     {
         if(frm_MantenimientoCursos.devolverInformacion()!=null)
         {
-            metodos_XML_Cursos.modificarCurso(frm_MantenimientoCursos.devolverInformacion());
+            metodos_XML_Cursos.modificarCursoXML(frm_MantenimientoCursos.devolverInformacion());
             frm_MantenimientoCursos.mostrarMensaje("El curso fue modificado de forma correcta.");
             frm_MantenimientoCursos.resetearGUI();
         }
@@ -212,7 +209,7 @@ public class Controlador_FRM_MantenimientoCursos implements ActionListener {
     {
         if(frm_MantenimientoCursos.devolverInformacion()!=null)
         {
-            metodos_XML_Cursos.eliminarCurso(frm_MantenimientoCursos.devolverInformacion());
+            metodos_XML_Cursos.eliminarCursoXML(frm_MantenimientoCursos.devolverInformacion());
             frm_MantenimientoCursos.mostrarMensaje("El curso fue eliminado de forma correcta.");
             frm_MantenimientoCursos.resetearGUI();
         }

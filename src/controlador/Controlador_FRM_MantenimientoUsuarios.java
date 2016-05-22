@@ -5,34 +5,34 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import modelo.ConexionBD;
 import modelo.MetodosUsuarios;
-import modelo.Metodos_XML_Usuarios;
-import vista.FRM_Inicio;
-import vista.FRM_MantenimientoUsuarios;
+import modelo.MetodosXML_Usuarios;
+import vista.FRM_Iniciar;
+import vista.FRM_Usuarios;
 
 public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
     
-    FRM_Inicio frm_Inicio;
+    FRM_Iniciar frm_Inicio;
     public MetodosUsuarios metodosUsuarios;
-    public Metodos_XML_Usuarios metodos_XML_Usuarios;
-    FRM_MantenimientoUsuarios frm_MantenimientoUsuarios;
+    public MetodosXML_Usuarios metodos_XML_Usuarios;
+    FRM_Usuarios frm_MantenimientoUsuarios;
     ConexionBD conexion;
 
-    public Controlador_FRM_MantenimientoUsuarios(FRM_Inicio frm_Inicio,FRM_MantenimientoUsuarios frm_MantenimientoUsuarios,ConexionBD conexion) {
+    public Controlador_FRM_MantenimientoUsuarios(FRM_Iniciar frm_Inicio,FRM_Usuarios frm_MantenimientoUsuarios,ConexionBD conexion) {
         
         this.frm_Inicio=frm_Inicio;
-        if(frm_Inicio.fuente.equals("AP"))
+        if(frm_Inicio.opcion.equals("Archivos"))
         {
             metodosUsuarios= new MetodosUsuarios();
             this.frm_MantenimientoUsuarios=frm_MantenimientoUsuarios;
         }
-        if(frm_Inicio.fuente.equals("BD"))
+        if(frm_Inicio.opcion.equals("BD"))
         {
             this.conexion=conexion;
             this.frm_MantenimientoUsuarios=frm_MantenimientoUsuarios;
         }
-        if(frm_Inicio.fuente.equals("XML"))
+        if(frm_Inicio.opcion.equals("XML"))
         {
-            this.metodos_XML_Usuarios= new Metodos_XML_Usuarios(frm_MantenimientoUsuarios);
+            this.metodos_XML_Usuarios= new MetodosXML_Usuarios(frm_MantenimientoUsuarios);
             this.frm_MantenimientoUsuarios=frm_MantenimientoUsuarios;
         }
     }
@@ -42,55 +42,54 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
         
         if(e.getActionCommand().equals("Agregar"))
         {
-            if(frm_Inicio.fuente.equals("AP"))
+            if(frm_Inicio.opcion.equals("Archivos"))
                 agregarAP();
             
-            if(frm_Inicio.fuente.equals("BD"))
+            if(frm_Inicio.opcion.equals("Base"))
                 agregarBD();
             
-            if(frm_Inicio.fuente.equals("XML"))
+            if(frm_Inicio.opcion.equals("XML"))
                 agregarXML();
         }
         if(e.getActionCommand().equals("Consultar"))
         {
-            if(frm_Inicio.fuente.equals("AP"))
+            if(frm_Inicio.opcion.equals("Archivos"))
                 buscarAP();
             
-            if(frm_Inicio.fuente.equals("BD"))
+            if(frm_Inicio.opcion.equals("Base"))
                 buscarBD();
             
-            if(frm_Inicio.fuente.equals("XML"))
+            if(frm_Inicio.opcion.equals("XML"))
                 buscarXML();
         }
         if(e.getActionCommand().equals("Modificar"))
         {
-            if(frm_Inicio.fuente.equals("AP"))
+            if(frm_Inicio.opcion.equals("Archivos"))
                 modificarAP();
             
-            if(frm_Inicio.fuente.equals("BD"))
+            if(frm_Inicio.opcion.equals("Base"))
                 modificarBD();
             
-            if(frm_Inicio.fuente.equals("XML"))
+            if(frm_Inicio.opcion.equals("XML"))
                 modificarXML();
         }
         if(e.getActionCommand().equals("Eliminar"))
         {
-            if(frm_Inicio.fuente.equals("AP"))
+            if(frm_Inicio.opcion.equals("Archivos"))
                 eliminarAP();
             
-            if(frm_Inicio.fuente.equals("BD"))
+            if(frm_Inicio.opcion.equals("Base"))
                 eliminarBD();
             
-            if(frm_Inicio.fuente.equals("XML"))
+            if(frm_Inicio.opcion.equals("XML"))
                 eliminarXML();
         }
     }
-    /// Metodos AP ///
     public void buscarAP()
     {
         if(frm_MantenimientoUsuarios.devolverCedula()!=null)
         {
-            if(metodosUsuarios.consultarUsuario(frm_MantenimientoUsuarios.devolverCedula()))
+            if(metodosUsuarios.consultarUsuarioAP(frm_MantenimientoUsuarios.devolverCedula()))
             {
                 frm_MantenimientoUsuarios.mostrarInformacion(metodosUsuarios.getArregloInformacion());
                 frm_MantenimientoUsuarios.habilitarEdicion();
@@ -108,7 +107,7 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
         {
             if(frm_MantenimientoUsuarios.verificarContraseñas())
             {
-                metodosUsuarios.agregarEstudiante(frm_MantenimientoUsuarios.devolverInformacion());
+                metodosUsuarios.agregarEstudianteAP(frm_MantenimientoUsuarios.devolverInformacion());
                 frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue agregado de forma correcta");
                 frm_MantenimientoUsuarios.resetearGUI();
             }
@@ -125,7 +124,7 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
         {
             if(frm_MantenimientoUsuarios.verificarContraseñas())
             {
-                metodosUsuarios.modificarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
+                metodosUsuarios.modificarUsuarioAP(frm_MantenimientoUsuarios.devolverInformacion());
                 frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue modificado de forma correcta");
                 frm_MantenimientoUsuarios.resetearGUI();
             }
@@ -140,12 +139,11 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
     {
         if(frm_MantenimientoUsuarios.devolverInformacion()!=null)
         {
-            metodosUsuarios.eliminarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
+            metodosUsuarios.eliminarUsuarioAP(frm_MantenimientoUsuarios.devolverInformacion());
             frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue eliminado de forma correcta");
             frm_MantenimientoUsuarios.resetearGUI();
         }
     }
-    /// Metodos BD ///
     public void buscarBD()
     {
         if(frm_MantenimientoUsuarios.devolverCedula()!=null)
@@ -205,14 +203,13 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
             frm_MantenimientoUsuarios.resetearGUI();
         }
     }
-    /// Metodos XML ///
     public void buscarXML()
     {
         if(frm_MantenimientoUsuarios.devolverCedula()!=null)
         {
-            if(metodos_XML_Usuarios.consultarUsuario(frm_MantenimientoUsuarios.devolverCedula()))
+            if(metodos_XML_Usuarios.consultarUsuarioXML(frm_MantenimientoUsuarios.devolverCedula()))
             {
-                frm_MantenimientoUsuarios.mostrarInformacion(metodos_XML_Usuarios.getArregloInformacion());
+                frm_MantenimientoUsuarios.mostrarInformacion(metodos_XML_Usuarios.getArregloInformacionXML());
                 frm_MantenimientoUsuarios.habilitarEdicion();
             }
             else
@@ -228,7 +225,7 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
             {
                 if(frm_MantenimientoUsuarios.devolverInformacion()!=null)
                 {
-                    metodos_XML_Usuarios.agregarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
+                    metodos_XML_Usuarios.agregarUsuarioXML(frm_MantenimientoUsuarios.devolverInformacion());
                     frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue agregado de forma correcta");
                     frm_MantenimientoUsuarios.resetearGUI();
                 }
@@ -245,7 +242,7 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
             {
                 if(frm_MantenimientoUsuarios.devolverInformacion()!=null)
                 {
-                    metodos_XML_Usuarios.modificarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
+                    metodos_XML_Usuarios.modificarUsuarioXML(frm_MantenimientoUsuarios.devolverInformacion());
                     frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue modificado de forma correcta");
                     frm_MantenimientoUsuarios.resetearGUI();
                 }
@@ -260,7 +257,7 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
     {
         if(frm_MantenimientoUsuarios.devolverInformacion()!=null)
         {
-            metodos_XML_Usuarios.eliminarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
+            metodos_XML_Usuarios.eliminarUsuarioXML(frm_MantenimientoUsuarios.devolverInformacion());
             frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue eliminado de forma correcta");
             frm_MantenimientoUsuarios.resetearGUI();
         }

@@ -26,13 +26,13 @@ public class MetodosMatricula {
         arrayMatriculas= archivoMatriculas.devolverInformacionCompleta();
     }
     
-    public void agregarMatricula(String informacion[])
+    public void agregarMatriculAP(String informacion[])
     {
         Matricula temporal=new Matricula(informacion[0], informacion[1], informacion[2]);
         arrayMatriculas.add(temporal);
         
     }
-    public boolean consultarMatricula(String codigo)
+    public boolean consultarMatriculaAP(String codigo)
     {
         boolean existe=false;
         
@@ -44,7 +44,7 @@ public class MetodosMatricula {
                 {
                     arregloInformacionConsultada[0]=codigo;
                     arregloInformacionConsultada[1]=arrayMatriculas.get(contador).getCedula();
-                    metodosEstudiantes.consultarEstudiante(arrayMatriculas.get(contador).getCedula());
+                    metodosEstudiantes.consultarEstudianteAP(arrayMatriculas.get(contador).getCedula());
                     arregloInformacionConsultada[2]=metodosEstudiantes.getArregloInformacion()[0];
                     arregloInformacionConsultada[3]=arrayMatriculas.get(contador).getSigla();
                     frm_Matricula.agregarInformacionTabla(arregloInformacionConsultada);
@@ -55,7 +55,7 @@ public class MetodosMatricula {
         }
         return existe;
     }
-    public void eliminarMatricula(String arreglo[])
+    public void eliminarMatriculaAP(String arreglo[])
     {
         for(int contador=0;contador<arrayMatriculas.size();contador++)
         {
@@ -68,17 +68,17 @@ public class MetodosMatricula {
             }
         }
     }
-    public void escribirInformacionEnElArchivo()
+    public void escribirInformacionEnElArchivoAP()
     {
-      archivoMatriculas.crearArchivo();
+      archivoMatriculas.crearArchivoPlano();
       
       for(int contador=0;contador<arrayMatriculas.size();contador++)
       {
-        archivoMatriculas.escribirInformacionEnElArchivo(arrayMatriculas.get(contador));
+        archivoMatriculas.escribirInformacionEnElArchivoPlano(arrayMatriculas.get(contador));
         
       }
     }
-    public String[] getArregloInformacion()
+    public String[] getArregloInformacionAP()
     {
         return this.arregloInformacionConsultada;
     }

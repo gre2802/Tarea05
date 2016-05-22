@@ -1,7 +1,7 @@
 
 package modelo;
 
-import controlador.Controlador_FRM_VentanaPrincipal;
+import controlador.Controlador_FRM_Ventana;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -17,25 +17,25 @@ public class ConexionBD {
     String arregloCursos[]=new String[3];
     String arregloMatriculas[]=new String[4];
     private ArrayList arrayCodigos= new ArrayList();
-    Controlador_FRM_VentanaPrincipal controlador;
+    Controlador_FRM_Ventana controlador;
     FRM_Matricula frm_Matricula;
     
-    public ConexionBD(Controlador_FRM_VentanaPrincipal controlador) 
+    public ConexionBD(Controlador_FRM_Ventana controlador) 
     {
-        realizarConexion();
+        realizarConexionBase();
         this.controlador=controlador;
         
     }
-    public void asignarFRM_Matricula()
+    public void asignarMatricula()
     {
         frm_Matricula= controlador.frm_Matricula;
     }
-    public void realizarConexion() 
+    public void realizarConexionBase() 
     {
         try {
             String userName = "root";
             String password = "";
-            String url = "jdbc:mysql://localhost:3306/matricula";
+            String url = "jdbc:mysql://localhost:3306/tareadb";
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             con = DriverManager.getConnection(url, userName, password);
             System.out.println("Conexión Realizada");
@@ -46,7 +46,6 @@ public class ConexionBD {
         } 
     }
     
-    /// Metodos Usuarios ///
     
     public boolean consultarUsuario(String cedula)
     {
@@ -56,7 +55,7 @@ public class ConexionBD {
 
         try {
                 cmd = con.createStatement();
-                rs = cmd.executeQuery("SELECT * FROM usuarios WHERE cedula="+cedula);
+                rs = cmd.executeQuery("SELECT * FROM usuario WHERE cedula="+cedula);
                 
                 while (rs.next()) 
                 {
@@ -92,7 +91,7 @@ public class ConexionBD {
 
         try {
                 cmd = con.createStatement();
-                rs = cmd.executeQuery("SELECT * FROM usuarios WHERE nombreUsuario='"+usuario+"'");
+                rs = cmd.executeQuery("SELECT * FROM usuario WHERE nombreUsuario='"+usuario+"'");
                 
                 while (rs.next()) 
                 {
@@ -127,7 +126,7 @@ public class ConexionBD {
         boolean ejecuto;
         try {
                 cmd = con.createStatement();
-                ejecuto = cmd.execute("INSERT INTO usuarios(cedula, nombreCompleto, nombreUsuario, contraseña, tipo) VALUES ('"+informacion[0]+"','"+informacion[1]+"','"+informacion[2]+"','"+informacion[3]+"','"+informacion[4]+"')");
+                ejecuto = cmd.execute("INSERT INTO usuario(cedula, nombreCompleto, nombreUsuario, contraseña, tipo) VALUES ('"+informacion[0]+"','"+informacion[1]+"','"+informacion[2]+"','"+informacion[3]+"','"+informacion[4]+"')");
                 
                 System.out.println("Usuario agregado con éxito");
         }
@@ -143,7 +142,7 @@ public class ConexionBD {
         boolean ejecuto;
         try {
                 cmd = con.createStatement();
-                ejecuto = cmd.execute("UPDATE usuarios SET cedula=('"+informacion[0]+"'),nombreCompleto=('"+informacion[1]+"'),nombreUsuario=('"+informacion[2]+"'),contraseña=('"+informacion[3]+"'),tipo=('"+informacion[4]+"') WHERE cedula="+informacion[0]);
+                ejecuto = cmd.execute("UPDATE usuario SET cedula=('"+informacion[0]+"'),nombreCompleto=('"+informacion[1]+"'),nombreUsuario=('"+informacion[2]+"'),contraseña=('"+informacion[3]+"'),tipo=('"+informacion[4]+"') WHERE cedula="+informacion[0]);
                 
                System.out.println("Usuario modificado con éxito");
         }
@@ -160,7 +159,7 @@ public class ConexionBD {
 
         try {
                 cmd = con.createStatement();
-                ejecuto = cmd.execute("DELETE FROM usuarios WHERE cedula="+informacion[0]);
+                ejecuto = cmd.execute("DELETE FROM usuario WHERE cedula="+informacion[0]);
                 
                 System.out.println("Usuario eliminado con éxito");
         }
@@ -179,7 +178,7 @@ public class ConexionBD {
 
         try {
                 cmd = con.createStatement();
-                rs = cmd.executeQuery("SELECT * FROM usuarios");
+                rs = cmd.executeQuery("SELECT * FROM usuario");
          
                 while (rs.next()) 
                 {
@@ -200,7 +199,6 @@ public class ConexionBD {
         return this.arregloUsuarios;
     }
     
-    /// MetodosEstudiantes ///
     
     public boolean consultarEstudiante(String cedula)
     {
@@ -210,7 +208,7 @@ public class ConexionBD {
 
         try {
                 cmd = con.createStatement();
-                rs = cmd.executeQuery("SELECT * FROM estudiantes WHERE cedula="+cedula);
+                rs = cmd.executeQuery("SELECT * FROM estudiante WHERE cedula="+cedula);
                 
                 while (rs.next()) 
                 {
@@ -234,6 +232,7 @@ public class ConexionBD {
         }
         return existe;
     }
+    
     public void agregarEstudiante(String informacion[])
     {
         ResultSet rs = null;
@@ -241,7 +240,7 @@ public class ConexionBD {
         boolean ejecuto;
         try {
                 cmd = con.createStatement();
-                ejecuto = cmd.execute("INSERT INTO estudiantes(cedula, nombre, direccion) VALUES ('"+informacion[0]+"','"+informacion[1]+"','"+informacion[2]+"')");
+                ejecuto = cmd.execute("INSERT INTO estudiante(cedula, nombre, direccion) VALUES ('"+informacion[0]+"','"+informacion[1]+"','"+informacion[2]+"')");
                 
                 System.out.println("Estudiante agregado con éxito");
         }
@@ -257,7 +256,7 @@ public class ConexionBD {
         boolean ejecuto;
         try {
                 cmd = con.createStatement();
-                ejecuto = cmd.execute("UPDATE estudiantes SET cedula=('"+informacion[0]+"'),nombre=('"+informacion[1]+"'),direccion=('"+informacion[2]+"') WHERE cedula="+informacion[0]);
+                ejecuto = cmd.execute("UPDATE estudiante SET cedula=('"+informacion[0]+"'),nombre=('"+informacion[1]+"'),direccion=('"+informacion[2]+"') WHERE cedula="+informacion[0]);
                 
                System.out.println("Estudiante modificado con éxito");
         }
@@ -274,7 +273,7 @@ public class ConexionBD {
 
         try {
                 cmd = con.createStatement();
-                ejecuto = cmd.execute("DELETE FROM estudiantes WHERE cedula="+informacion[0]);
+                ejecuto = cmd.execute("DELETE FROM estudiante WHERE cedula="+informacion[0]);
                 
                 System.out.println("Estudiante eliminado con éxito");
         }
@@ -293,7 +292,6 @@ public class ConexionBD {
         return arregloEstudiantes[0];
     }
     
-    /// Metodos Cursos ///
     
     public boolean consultarCurso(String sigla)
     {
@@ -312,7 +310,7 @@ public class ConexionBD {
                         
                         String nombre= rs.getString("nombre");
                         String creditos= rs.getString("creditos");
-                        String horario= rs.getString("horario");
+                        String horario= rs.getString("horarios");
                         
                         arregloCursos[0]=nombre;
                         arregloCursos[1]=creditos;
@@ -336,7 +334,7 @@ public class ConexionBD {
         boolean ejecuto;
         try {  
                 cmd = con.createStatement();
-                ejecuto = cmd.execute("INSERT INTO cursos(sigla, nombre, creditos, horario) VALUES ('"+informacion[0]+"','"+informacion[1]+"','"+informacion[2]+"','"+informacion[3]+"')");
+                ejecuto = cmd.execute("INSERT INTO cursos(sigla, nombre, creditos, horarios) VALUES ('"+informacion[0]+"','"+informacion[1]+"','"+informacion[2]+"','"+informacion[3]+"')");
                 
                 System.out.println("Curso agregado con éxito");
         }
@@ -352,7 +350,7 @@ public class ConexionBD {
         boolean ejecuto;
         try {
                 cmd = con.createStatement();
-                ejecuto = cmd.execute("UPDATE cursos SET sigla=('"+informacion[0]+"'),nombre=('"+informacion[1]+"'),creditos=('"+informacion[2]+"'),horario=('"+informacion[3]+"') WHERE sigla='"+informacion[0]+"'");
+                ejecuto = cmd.execute("UPDATE cursos SET sigla=('"+informacion[0]+"'),nombre=('"+informacion[1]+"'),creditos=('"+informacion[2]+"'),horarios=('"+informacion[3]+"') WHERE sigla='"+informacion[0]+"'");
                 
                System.out.println("Curso modificado con éxito");
         }
@@ -388,7 +386,6 @@ public class ConexionBD {
         return arregloCursos[0];
     }
     
-    /// Metodos Matricula ///
     
     public boolean consultarMatricula(String codigo)
     {
@@ -399,7 +396,7 @@ public class ConexionBD {
         
         try {
                 cmd = con.createStatement();
-                rs = cmd.executeQuery("SELECT * FROM detalle_matriculas WHERE codigo='"+codigo+"'");
+                rs = cmd.executeQuery("SELECT * FROM detalle_matricula WHERE codigo='"+codigo+"'");
                 
                 while (rs.next()) 
                 {
@@ -437,7 +434,7 @@ public class ConexionBD {
         boolean ejecuto;
         try {  
                 cmd = con.createStatement();
-                ejecuto = cmd.execute("INSERT INTO matriculas(codigo, cedula) VALUES ('"+informacion[0]+"','"+informacion[1]+"')");
+                ejecuto = cmd.execute("INSERT INTO matricula(codigo, cedula) VALUES ('"+informacion[0]+"','"+informacion[1]+"')");
                 arrayCodigos.add(ejecuto);
                 System.out.println("Curso agregado con éxito");
         }
@@ -454,7 +451,7 @@ public class ConexionBD {
         boolean ejecuto;
         try {  
                 cmd = con.createStatement();
-                ejecuto = cmd.execute("INSERT INTO detalle_matriculas(codigo, cedula, sigla) VALUES ('"+informacion[0]+"','"+informacion[1]+"','"+informacion[2]+"')");
+                ejecuto = cmd.execute("INSERT INTO detalle_matricula(codigo, cedula, sigla) VALUES ('"+informacion[0]+"','"+informacion[1]+"','"+informacion[2]+"')");
         }
         catch(Exception e)
         {
@@ -469,7 +466,7 @@ public class ConexionBD {
 
         try {
                 cmd = con.createStatement();
-                ejecuto = cmd.execute("DELETE FROM detalle_matriculas WHERE codigo='"+informacion[0]+"'and sigla='"+informacion[1]+"'");
+                ejecuto = cmd.execute("DELETE FROM detalle_matricula WHERE codigo='"+informacion[0]+"'and sigla='"+informacion[1]+"'");
                 
                 System.out.println("Matricula eliminada con éxito");
         }
@@ -488,7 +485,7 @@ public class ConexionBD {
 
         try {
                 cmd = con.createStatement();
-                rs = cmd.executeQuery("SELECT * FROM matriculas");
+                rs = cmd.executeQuery("SELECT * FROM matricula");
          
                 while (rs.next()) 
                 {
@@ -504,7 +501,7 @@ public class ConexionBD {
         }
         return cantidadFilas;
     }
-    public String devolverCodigo()
+    public String mostrarCodigo()
     {
         cantidadFilasMatricula();
         String codigo= "0000";

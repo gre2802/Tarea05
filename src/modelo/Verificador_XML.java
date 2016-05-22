@@ -1,7 +1,7 @@
 
 package modelo;
 
-public class Verificador 
+public class Verificador_XML 
 {
     
     public String quitarEspacios(String texto) 

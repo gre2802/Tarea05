@@ -12,7 +12,7 @@ public class ArchivoMatriculas {
     ObjectOutputStream archivoSalida;
     ObjectInputStream archivoEntrada;
 
-    public void crearArchivo()
+    public void crearArchivoPlano()
     {
       try
       {
@@ -24,7 +24,7 @@ public class ArchivoMatriculas {
           System.out.println("Error al crear el archivo: "+e);
       }
     }  
-    public void escribirInformacionEnElArchivo(Matricula matricula)
+    public void escribirInformacionEnElArchivoPlano(Matricula matricula)
     {
       try
       {
