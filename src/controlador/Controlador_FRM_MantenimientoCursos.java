@@ -88,97 +88,133 @@ public class Controlador_FRM_MantenimientoCursos implements ActionListener {
     /// Metodos AP ///
     public void buscarAP() 
     {
-        if(metodosCursos.consultarCurso(frm_MantenimientoCursos.devolverSigla()))
+        if(frm_MantenimientoCursos.devolverSigla()!=null)
         {
-            frm_MantenimientoCursos.mostrarInformacion(metodosCursos.getArregloInformacion());
-            frm_MantenimientoCursos.habilitarEdicion();
-        }
-        else
-        {
-            frm_MantenimientoCursos.mostrarMensaje("La sigla buscada no se encuentra.");
-            frm_MantenimientoCursos.habilitarAgregar();
+            if(metodosCursos.consultarCurso(frm_MantenimientoCursos.devolverSigla()))
+            {
+                frm_MantenimientoCursos.mostrarInformacion(metodosCursos.getArregloInformacion());
+                frm_MantenimientoCursos.habilitarEdicion();
+            }
+            else
+            {
+                frm_MantenimientoCursos.mostrarMensaje("La sigla buscada no se encuentra.");
+                frm_MantenimientoCursos.habilitarAgregar();
+            }
         }
     }
     public void agregarAP()
     {
-        metodosCursos.agregarCurso(frm_MantenimientoCursos.devolverInformacion());
-        frm_MantenimientoCursos.mostrarMensaje("El curso fue registrado de forma correcta");
-        frm_MantenimientoCursos.resetearGUI();
+        if(frm_MantenimientoCursos.devolverInformacion()!=null)
+        {
+            metodosCursos.agregarCurso(frm_MantenimientoCursos.devolverInformacion());
+            frm_MantenimientoCursos.mostrarMensaje("El curso fue registrado de forma correcta");
+            frm_MantenimientoCursos.resetearGUI();
+        }
     }
     public void modificarAP()
     {
-        metodosCursos.modificarCurso(frm_MantenimientoCursos.devolverInformacion());
-        frm_MantenimientoCursos.mostrarMensaje("El curso fue modificado de forma correcta.");
-        frm_MantenimientoCursos.resetearGUI();
+        if(frm_MantenimientoCursos.devolverInformacion()!=null)
+        {
+            metodosCursos.modificarCurso(frm_MantenimientoCursos.devolverInformacion());
+            frm_MantenimientoCursos.mostrarMensaje("El curso fue modificado de forma correcta.");
+            frm_MantenimientoCursos.resetearGUI();
+        }
     }
     public void eliminarAP()
     {
-        metodosCursos.eliminarCurso(frm_MantenimientoCursos.devolverInformacion());
-        frm_MantenimientoCursos.mostrarMensaje("El curso fue eliminado de forma correcta.");
-        frm_MantenimientoCursos.resetearGUI();
+        if(frm_MantenimientoCursos.devolverInformacion()!=null)
+        {
+            metodosCursos.eliminarCurso(frm_MantenimientoCursos.devolverInformacion());
+            frm_MantenimientoCursos.mostrarMensaje("El curso fue eliminado de forma correcta.");
+            frm_MantenimientoCursos.resetearGUI();
+        }
     }
     /// Metodos BD///
     public void buscarBD() 
     {
-        if(conexion.consultarCurso(frm_MantenimientoCursos.devolverSigla()))
+        if(frm_MantenimientoCursos.devolverSigla()!=null)
         {
-            frm_MantenimientoCursos.mostrarInformacion(conexion.getArregloCursos());
-            frm_MantenimientoCursos.habilitarEdicion();
-        }
-        else
-        {
-            frm_MantenimientoCursos.mostrarMensaje("La sigla buscada no se encuentra.");
-            frm_MantenimientoCursos.habilitarAgregar();
+            if(conexion.consultarCurso(frm_MantenimientoCursos.devolverSigla()))
+            {
+                frm_MantenimientoCursos.mostrarInformacion(conexion.getArregloCursos());
+                frm_MantenimientoCursos.habilitarEdicion();
+            }
+            else
+            {
+                frm_MantenimientoCursos.mostrarMensaje("La sigla buscada no se encuentra.");
+                frm_MantenimientoCursos.habilitarAgregar();
+            }
         }
     }
     public void agregarBD()
     {
-        conexion.agregarCurso(frm_MantenimientoCursos.devolverInformacion());
-        frm_MantenimientoCursos.mostrarMensaje("El curso fue registrado de forma correcta");
-        frm_MantenimientoCursos.resetearGUI();
+        if(frm_MantenimientoCursos.devolverInformacion()!=null)
+        {
+            conexion.agregarCurso(frm_MantenimientoCursos.devolverInformacion());
+            frm_MantenimientoCursos.mostrarMensaje("El curso fue registrado de forma correcta");
+            frm_MantenimientoCursos.resetearGUI();
+        }
     }
     public void modificarBD()
     {
-        conexion.modificarCurso(frm_MantenimientoCursos.devolverInformacion());
-        frm_MantenimientoCursos.mostrarMensaje("El curso fue modificado de forma correcta.");
-        frm_MantenimientoCursos.resetearGUI();
+        if(frm_MantenimientoCursos.devolverInformacion()!=null)
+        {
+            conexion.modificarCurso(frm_MantenimientoCursos.devolverInformacion());
+            frm_MantenimientoCursos.mostrarMensaje("El curso fue modificado de forma correcta.");
+            frm_MantenimientoCursos.resetearGUI();
+        }
     }
     public void eliminarBD()
     {
-        conexion.eliminarCurso(frm_MantenimientoCursos.devolverInformacion());
-        frm_MantenimientoCursos.mostrarMensaje("El curso fue eliminado de forma correcta.");
-        frm_MantenimientoCursos.resetearGUI();
+        if(frm_MantenimientoCursos.devolverInformacion()!=null)
+        {
+            conexion.eliminarCurso(frm_MantenimientoCursos.devolverInformacion());
+            frm_MantenimientoCursos.mostrarMensaje("El curso fue eliminado de forma correcta.");
+            frm_MantenimientoCursos.resetearGUI();
+        }
     }
     /// Metodos XML ///
     public void buscarXML() 
     {
-        if(metodos_XML_Cursos.consultarCurso(frm_MantenimientoCursos.devolverSigla()))
+        if(frm_MantenimientoCursos.devolverSigla()!=null)
         {
-            frm_MantenimientoCursos.mostrarInformacionXML(metodos_XML_Cursos.getArregloInformacion());
-            frm_MantenimientoCursos.habilitarEdicion();
-        }
-        else
-        {
-            frm_MantenimientoCursos.mostrarMensaje("La sigla buscada no se encuentra.");
-            frm_MantenimientoCursos.habilitarAgregar();
+            if(metodos_XML_Cursos.consultarCurso(frm_MantenimientoCursos.devolverSigla()))
+            {
+                frm_MantenimientoCursos.mostrarInformacionXML(metodos_XML_Cursos.getArregloInformacion());
+                frm_MantenimientoCursos.habilitarEdicion();
+            }
+            else
+            {
+                frm_MantenimientoCursos.mostrarMensaje("La sigla buscada no se encuentra.");
+                frm_MantenimientoCursos.habilitarAgregar();
+            }
         }
     }
     public void agregarXML()
     {
-        metodos_XML_Cursos.agregarCurso(frm_MantenimientoCursos.devolverInformacion());
-        frm_MantenimientoCursos.mostrarMensaje("El curso fue registrado de forma correcta");
-        frm_MantenimientoCursos.resetearGUI();
+        if(frm_MantenimientoCursos.devolverInformacion()!=null)
+        {
+            metodos_XML_Cursos.agregarCurso(frm_MantenimientoCursos.devolverInformacion());
+            frm_MantenimientoCursos.mostrarMensaje("El curso fue registrado de forma correcta");
+            frm_MantenimientoCursos.resetearGUI();
+        }
     }
     public void modificarXML()
     {
-        metodos_XML_Cursos.modificarCurso(frm_MantenimientoCursos.devolverInformacion());
-        frm_MantenimientoCursos.mostrarMensaje("El curso fue modificado de forma correcta.");
-        frm_MantenimientoCursos.resetearGUI();
+        if(frm_MantenimientoCursos.devolverInformacion()!=null)
+        {
+            metodos_XML_Cursos.modificarCurso(frm_MantenimientoCursos.devolverInformacion());
+            frm_MantenimientoCursos.mostrarMensaje("El curso fue modificado de forma correcta.");
+            frm_MantenimientoCursos.resetearGUI();
+        }
     }
     public void eliminarXML()
     {
-        metodos_XML_Cursos.eliminarCurso(frm_MantenimientoCursos.devolverInformacion());
-        frm_MantenimientoCursos.mostrarMensaje("El curso fue eliminado de forma correcta.");
-        frm_MantenimientoCursos.resetearGUI();
+        if(frm_MantenimientoCursos.devolverInformacion()!=null)
+        {
+            metodos_XML_Cursos.eliminarCurso(frm_MantenimientoCursos.devolverInformacion());
+            frm_MantenimientoCursos.mostrarMensaje("El curso fue eliminado de forma correcta.");
+            frm_MantenimientoCursos.resetearGUI();
+        }
     }
 }

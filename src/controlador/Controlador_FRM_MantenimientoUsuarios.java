@@ -88,7 +88,9 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
     /// Metodos AP ///
     public void buscarAP()
     {
-        if(metodosUsuarios.consultarUsuario(frm_MantenimientoUsuarios.devolverCedula()))
+        if(frm_MantenimientoUsuarios.devolverCedula()!=null)
+        {
+            if(metodosUsuarios.consultarUsuario(frm_MantenimientoUsuarios.devolverCedula()))
             {
                 frm_MantenimientoUsuarios.mostrarInformacion(metodosUsuarios.getArregloInformacion());
                 frm_MantenimientoUsuarios.habilitarEdicion();
@@ -98,10 +100,13 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
                 frm_MantenimientoUsuarios.mostrarMensaje("La cédula buscada no se encuentra");
                 frm_MantenimientoUsuarios.habilitarAgregar();
             }
+        }
     }
     public void agregarAP()
     {
-        if(frm_MantenimientoUsuarios.verificarContraseñas())
+        if(frm_MantenimientoUsuarios.devolverInformacion()!=null)
+        {
+            if(frm_MantenimientoUsuarios.verificarContraseñas())
             {
                 metodosUsuarios.agregarEstudiante(frm_MantenimientoUsuarios.devolverInformacion());
                 frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue agregado de forma correcta");
@@ -112,10 +117,13 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
                 frm_MantenimientoUsuarios.mostrarMensaje("Contaseñas distintas\n\nVuelva a repetir la contraseña");
                 frm_MantenimientoUsuarios.limpiarRepetirContraseña();
             }
+        }
     }
     public void modificarAP()
     {
-        if(frm_MantenimientoUsuarios.verificarContraseñas())
+        if(frm_MantenimientoUsuarios.devolverInformacion()!=null)
+        {
+            if(frm_MantenimientoUsuarios.verificarContraseñas())
             {
                 metodosUsuarios.modificarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
                 frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue modificado de forma correcta");
@@ -126,17 +134,23 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
                 frm_MantenimientoUsuarios.mostrarMensaje("Contaseñas distintas\n\nVuelva a repetir la contraseña");
                 frm_MantenimientoUsuarios.limpiarRepetirContraseña();
             }
+        }
     }
     public void eliminarAP()
     {
-        metodosUsuarios.eliminarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
-        frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue eliminado de forma correcta");
-        frm_MantenimientoUsuarios.resetearGUI();
+        if(frm_MantenimientoUsuarios.devolverInformacion()!=null)
+        {
+            metodosUsuarios.eliminarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
+            frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue eliminado de forma correcta");
+            frm_MantenimientoUsuarios.resetearGUI();
+        }
     }
     /// Metodos BD ///
     public void buscarBD()
     {
-         if(conexion.consultarUsuario(frm_MantenimientoUsuarios.devolverCedula()))
+        if(frm_MantenimientoUsuarios.devolverCedula()!=null)
+        {
+            if(conexion.consultarUsuario(frm_MantenimientoUsuarios.devolverCedula()))
             {
                 frm_MantenimientoUsuarios.mostrarInformacion(conexion.getArregloUsuarios());
                 frm_MantenimientoUsuarios.habilitarEdicion();
@@ -146,28 +160,35 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
                 frm_MantenimientoUsuarios.mostrarMensaje("La cédula buscada no se encuentra");
                 frm_MantenimientoUsuarios.habilitarAgregar();
             }
+        }
     }
     public void agregarBD()
     {
         if(frm_MantenimientoUsuarios.verificarContraseñas())
+        {
+            if(frm_MantenimientoUsuarios.devolverInformacion()!=null)
             {
                 conexion.agregarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
                 frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue agregado de forma correcta");
                 frm_MantenimientoUsuarios.resetearGUI();
             }
-            else
-            {
-                frm_MantenimientoUsuarios.mostrarMensaje("Contaseñas distintas\n\nVuelva a repetir la contraseña");
-                frm_MantenimientoUsuarios.limpiarRepetirContraseña();
+        }
+        else
+        {
+            frm_MantenimientoUsuarios.mostrarMensaje("Contaseñas distintas\n\nVuelva a repetir la contraseña");
+            frm_MantenimientoUsuarios.limpiarRepetirContraseña();
         }
     }
     public void modificarBD()
     {
         if(frm_MantenimientoUsuarios.verificarContraseñas())
             {
-                conexion.modificarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
-                frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue modificado de forma correcta");
-                frm_MantenimientoUsuarios.resetearGUI();
+                if(frm_MantenimientoUsuarios.devolverInformacion()!=null)
+                {
+                    conexion.modificarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
+                    frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue modificado de forma correcta");
+                    frm_MantenimientoUsuarios.resetearGUI();
+                }
             }
             else
             {
@@ -177,14 +198,19 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
     }
     public void eliminarBD()
     {
-        conexion.eliminarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
-        frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue eliminado de forma correcta");
-        frm_MantenimientoUsuarios.resetearGUI();
+        if(frm_MantenimientoUsuarios.devolverInformacion()!=null)
+        {
+            conexion.eliminarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
+            frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue eliminado de forma correcta");
+            frm_MantenimientoUsuarios.resetearGUI();
+        }
     }
     /// Metodos XML ///
     public void buscarXML()
     {
-        if(metodos_XML_Usuarios.consultarUsuario(frm_MantenimientoUsuarios.devolverCedula()))
+        if(frm_MantenimientoUsuarios.devolverCedula()!=null)
+        {
+            if(metodos_XML_Usuarios.consultarUsuario(frm_MantenimientoUsuarios.devolverCedula()))
             {
                 frm_MantenimientoUsuarios.mostrarInformacion(metodos_XML_Usuarios.getArregloInformacion());
                 frm_MantenimientoUsuarios.habilitarEdicion();
@@ -194,14 +220,18 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
                 frm_MantenimientoUsuarios.mostrarMensaje("La cédula buscada no se encuentra");
                 frm_MantenimientoUsuarios.habilitarAgregar();
             }
+        }
     }
     public void agregarXML()
     {
         if(frm_MantenimientoUsuarios.verificarContraseñas())
             {
-                metodos_XML_Usuarios.agregarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
-                frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue agregado de forma correcta");
-                frm_MantenimientoUsuarios.resetearGUI();
+                if(frm_MantenimientoUsuarios.devolverInformacion()!=null)
+                {
+                    metodos_XML_Usuarios.agregarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
+                    frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue agregado de forma correcta");
+                    frm_MantenimientoUsuarios.resetearGUI();
+                }
             }
             else
             {
@@ -213,9 +243,12 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
     {
         if(frm_MantenimientoUsuarios.verificarContraseñas())
             {
-                metodos_XML_Usuarios.modificarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
-                frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue modificado de forma correcta");
-                frm_MantenimientoUsuarios.resetearGUI();
+                if(frm_MantenimientoUsuarios.devolverInformacion()!=null)
+                {
+                    metodos_XML_Usuarios.modificarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
+                    frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue modificado de forma correcta");
+                    frm_MantenimientoUsuarios.resetearGUI();
+                }
             }
             else
             {
@@ -225,8 +258,11 @@ public class Controlador_FRM_MantenimientoUsuarios implements ActionListener {
     }
     public void eliminarXML()
     {
-        metodos_XML_Usuarios.eliminarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
-        frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue eliminado de forma correcta");
-        frm_MantenimientoUsuarios.resetearGUI();
+        if(frm_MantenimientoUsuarios.devolverInformacion()!=null)
+        {
+            metodos_XML_Usuarios.eliminarUsuario(frm_MantenimientoUsuarios.devolverInformacion());
+            frm_MantenimientoUsuarios.mostrarMensaje("El usuario fue eliminado de forma correcta");
+            frm_MantenimientoUsuarios.resetearGUI();
+        }
     }
 }

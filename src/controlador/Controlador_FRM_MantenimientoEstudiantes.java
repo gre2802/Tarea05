@@ -89,98 +89,133 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener 
     /// Metodos AP ///
     public void buscarAP()
     {
-        if(metodosEstudiantes.consultarEstudiante(frm_MantenimientoEstudiantes.devolverCedula()))
+        if(frm_MantenimientoEstudiantes.devolverCedula()!=null)
         {
-            frm_MantenimientoEstudiantes.mostrarInformacion(metodosEstudiantes.getArregloInformacion());
-            frm_MantenimientoEstudiantes.habilitarEdicion();
-        }
-        else
-        {
-            frm_MantenimientoEstudiantes.mostrarMensaje("La cédula buscada no se encuentra.");
-            frm_MantenimientoEstudiantes.habilitarAgregar();
+            if(metodosEstudiantes.consultarEstudiante(frm_MantenimientoEstudiantes.devolverCedula()))
+            {
+                frm_MantenimientoEstudiantes.mostrarInformacion(metodosEstudiantes.getArregloInformacion());
+                frm_MantenimientoEstudiantes.habilitarEdicion();
+            }
+            else
+            {
+                frm_MantenimientoEstudiantes.mostrarMensaje("La cédula buscada no se encuentra.");
+                frm_MantenimientoEstudiantes.habilitarAgregar();
+            }
         }
     }
     public void agregarAP()
     {
-        metodosEstudiantes.agregarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
-        frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue registrado de forma correcta");
-        frm_MantenimientoEstudiantes.resetearGUI();
+        if(frm_MantenimientoEstudiantes.devolverInformacion()!=null)
+        {
+            metodosEstudiantes.agregarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+            frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue registrado de forma correcta");
+            frm_MantenimientoEstudiantes.resetearGUI();
+        }
     }
     public void modificarAP()
     {
-        metodosEstudiantes.modificarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
-        frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue modificado de forma correcta.");
-        frm_MantenimientoEstudiantes.resetearGUI();
+        if(frm_MantenimientoEstudiantes.devolverInformacion()!=null)
+        {
+            metodosEstudiantes.modificarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+            frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue modificado de forma correcta.");
+            frm_MantenimientoEstudiantes.resetearGUI();
+        }
     }
     public void eliminarAP()
     {
-        metodosEstudiantes.eliminarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
-        frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue eliminado de forma correcta.");
-        frm_MantenimientoEstudiantes.resetearGUI();
+        if(frm_MantenimientoEstudiantes.devolverInformacion()!=null)
+        {
+            metodosEstudiantes.eliminarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+            frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue eliminado de forma correcta.");
+            frm_MantenimientoEstudiantes.resetearGUI();
+        }
     }
     /// Metodos BD ///
     public void buscarBD()
     {
-        if(conexion.consultarEstudiante(frm_MantenimientoEstudiantes.devolverCedula()))
+        if(frm_MantenimientoEstudiantes.devolverCedula()!=null)
         {
-            frm_MantenimientoEstudiantes.mostrarInformacion(conexion.getArregloEstudiantes());
-            frm_MantenimientoEstudiantes.habilitarEdicion();
-        }
-        else
-        {
-            frm_MantenimientoEstudiantes.mostrarMensaje("La cédula buscada no se encuentra.");
-            frm_MantenimientoEstudiantes.habilitarAgregar();
+            if(conexion.consultarEstudiante(frm_MantenimientoEstudiantes.devolverCedula()))
+            {
+                frm_MantenimientoEstudiantes.mostrarInformacion(conexion.getArregloEstudiantes());
+                frm_MantenimientoEstudiantes.habilitarEdicion();
+            }
+            else
+            {
+                frm_MantenimientoEstudiantes.mostrarMensaje("La cédula buscada no se encuentra.");
+                frm_MantenimientoEstudiantes.habilitarAgregar();
+            }
         }
     }
     public void agregarBD()
     {
-        conexion.agregarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
-        frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue registrado de forma correcta");
-        frm_MantenimientoEstudiantes.resetearGUI();
+        if(frm_MantenimientoEstudiantes.devolverInformacion()!=null)
+        {
+            conexion.agregarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+            frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue registrado de forma correcta");
+            frm_MantenimientoEstudiantes.resetearGUI();
+        }
     }
     public void modificarBD()
     {
-        conexion.modificarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
-        frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue modificado de forma correcta.");
-        frm_MantenimientoEstudiantes.resetearGUI();
-   
+        if(frm_MantenimientoEstudiantes.devolverInformacion()!=null)
+        {
+            conexion.modificarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+            frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue modificado de forma correcta.");
+            frm_MantenimientoEstudiantes.resetearGUI();
+        }
     }
     public void eliminarBD()
     {
-        conexion.eliminarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
-        frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue eliminado de forma correcta.");
-        frm_MantenimientoEstudiantes.resetearGUI();
+        if(frm_MantenimientoEstudiantes.devolverInformacion()!=null)
+        {
+            conexion.eliminarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+            frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue eliminado de forma correcta.");
+            frm_MantenimientoEstudiantes.resetearGUI();
+        }
     }
     /// Metodos XML ///
     public void buscarXML()
     {
-        if(metodos_XML_Estudiantes.consultarEstudiante(frm_MantenimientoEstudiantes.devolverCedula()))
+        if(frm_MantenimientoEstudiantes.devolverCedula()!=null)
         {
-            frm_MantenimientoEstudiantes.mostrarInformacionXML(metodos_XML_Estudiantes.getArregloInformacion());
-            frm_MantenimientoEstudiantes.habilitarEdicion();
-        }
-        else
-        {
-            frm_MantenimientoEstudiantes.mostrarMensaje("La cédula buscada no se encuentra.");
-            frm_MantenimientoEstudiantes.habilitarAgregar();
+            if(metodos_XML_Estudiantes.consultarEstudiante(frm_MantenimientoEstudiantes.devolverCedula()))
+            {
+                frm_MantenimientoEstudiantes.mostrarInformacionXML(metodos_XML_Estudiantes.getArregloInformacion());
+                frm_MantenimientoEstudiantes.habilitarEdicion();
+            }
+            else
+            {
+                frm_MantenimientoEstudiantes.mostrarMensaje("La cédula buscada no se encuentra.");
+                frm_MantenimientoEstudiantes.habilitarAgregar();
+            }
         }
     }
     public void agregarXML()
     {
-        metodos_XML_Estudiantes.agregarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
-        frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue registrado de forma correcta");
-        frm_MantenimientoEstudiantes.resetearGUI();
+        if(frm_MantenimientoEstudiantes.devolverInformacion()!=null)
+        {
+            metodos_XML_Estudiantes.agregarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+            frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue registrado de forma correcta");
+            frm_MantenimientoEstudiantes.resetearGUI();
+        }
     }
     public void modificarXML()
     {
-        metodos_XML_Estudiantes.modificarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
-        frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue modificado de forma correcta.");
-        frm_MantenimientoEstudiantes.resetearGUI();
+        if(frm_MantenimientoEstudiantes.devolverInformacion()!=null)
+        {
+            metodos_XML_Estudiantes.modificarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+            frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue modificado de forma correcta.");
+            frm_MantenimientoEstudiantes.resetearGUI();
+        }
     }
     public void eliminarXML()
     {
-        metodos_XML_Estudiantes.eliminarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
-        frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue eliminado de forma correcta.");
-        frm_MantenimientoEstudiantes.resetearGUI();
+        if(frm_MantenimientoEstudiantes.devolverInformacion()!=null)
+        {
+            metodos_XML_Estudiantes.eliminarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+            frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue eliminado de forma correcta.");
+            frm_MantenimientoEstudiantes.resetearGUI();
+        }
     }
 }

@@ -2,32 +2,72 @@
 package vista;
 
 import controlador.Controlador_FRM_MantenimientoEstudiantes;
+import javax.swing.JOptionPane;
+import modelo.Verificador;
 
 public class Panel_InformacionBasica extends javax.swing.JPanel {
 
     Controlador_FRM_MantenimientoEstudiantes controlador;
+    Verificador verificador;
+    
     public Panel_InformacionBasica() {
         initComponents();
         deshabilitarCampos();
     }
-    public void agregarEventos(Controlador_FRM_MantenimientoEstudiantes controlador)
+    public void agregarEventos(Controlador_FRM_MantenimientoEstudiantes controlador,Verificador verificador)
     {
         this.controlador=controlador;
         this.btn_ConsultaRapida.addActionListener(controlador);
         this.jt_Cedula.addActionListener(controlador);
+        this.verificador=verificador;
     }
     public String[] devolverInformacion()
     {
         String informacion[]=new String[3];
-        informacion[0]=this.jt_Cedula.getText();
-        informacion[1]=this.jt_NombreCompleto.getText();
-        informacion[2]=this.jt_Direccion.getText();
+        if(verificador.verificarNumero(verificador.quitarEspacios(jt_Cedula.getText())) && verificador.verificarCampoTexto(jt_Cedula.getText()))
+        {
+            informacion[0]=verificador.quitarEspacios(jt_Cedula.getText());
+        }
+        else
+        {
+            informacion=null;
+            JOptionPane.showMessageDialog(null,"La cédula solo puede contener números");
+            this.jt_Cedula.setText("");
+        }
+        if(verificador.verificarLetras(jt_NombreCompleto.getText()) && verificador.verificarCampoTexto(jt_NombreCompleto.getText()))
+        {
+            informacion[1]=this.jt_NombreCompleto.getText();
+        }
+        else
+        {
+            informacion=null;
+            JOptionPane.showMessageDialog(null,"El nombre solo puede contener letras");
+            this.jt_NombreCompleto.setText("");
+        }
+        if(verificador.verificarCampoTexto(jt_Direccion.getText()))
+        {
+            informacion[2]=this.jt_Direccion.getText();
+        }
+        else
+        {
+            informacion=null;
+            JOptionPane.showMessageDialog(null,"Debe rellenar el espacio de Dirección");
+        }
         
         return informacion;
     }
     public String devolverCedula()
     {
-        return this.jt_Cedula.getText();
+        if(verificador.verificarNumero(verificador.quitarEspacios(jt_Cedula.getText())) && verificador.verificarCampoTexto(jt_Cedula.getText()))
+        {
+            return verificador.quitarEspacios(jt_Cedula.getText());
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"La cédula solo puede contener números");
+            this.jt_Cedula.setText("");
+            return null;
+        }
     }
     public void mostrarInformacion(String arreglo[])
     {
@@ -55,9 +95,9 @@ public class Panel_InformacionBasica extends javax.swing.JPanel {
     }
     public void habilitarEdicion()
     {
-        this.jt_Cedula.setEnabled(false);
         this.jt_NombreCompleto.setEnabled(true);
         this.jt_Direccion.setEnabled(true);
+        this.jt_Cedula.setEnabled(false);
     }
     public void deshabilitarCampos()
     {

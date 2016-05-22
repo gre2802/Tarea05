@@ -4,6 +4,7 @@ package vista;
 import controlador.Controlador_FRM_MantenimientoEstudiantes;
 import javax.swing.JOptionPane;
 import modelo.ConexionBD;
+import modelo.Verificador;
 
 public class FRM_MantenimientoEstudiantes extends javax.swing.JFrame {
 
@@ -11,7 +12,7 @@ public class FRM_MantenimientoEstudiantes extends javax.swing.JFrame {
     public Controlador_FRM_MantenimientoEstudiantes controlador_FRM_MantenimientoEstudiantes;
     FRM_Inicio frm_Inicio;
     
-    public FRM_MantenimientoEstudiantes(FRM_Inicio frm_Inicio,ConexionBD conexion) {
+    public FRM_MantenimientoEstudiantes(FRM_Inicio frm_Inicio,ConexionBD conexion,Verificador verificador) {
         super("Mantenimiento de Estudiantes");
         initComponents();
         setVisible(false);
@@ -19,7 +20,7 @@ public class FRM_MantenimientoEstudiantes extends javax.swing.JFrame {
         this.frm_Inicio=frm_Inicio;
         controlador_FRM_MantenimientoEstudiantes = new Controlador_FRM_MantenimientoEstudiantes(frm_Inicio,this,conexion);
         this.panel_Botones1.agregarEventos(controlador_FRM_MantenimientoEstudiantes);
-        this.panel_InformacionBasica1.agregarEventos(controlador_FRM_MantenimientoEstudiantes);
+        this.panel_InformacionBasica1.agregarEventos(controlador_FRM_MantenimientoEstudiantes,verificador);
     }
     public String[] devolverInformacion()
     {

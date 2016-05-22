@@ -4,26 +4,22 @@ package vista;
 import controlador.Controlador_FRM_MantenimientoCursos;
 import javax.swing.JOptionPane;
 import modelo.ConexionBD;
+import modelo.Verificador;
 
 public class FRM_MantenimientoCursos extends javax.swing.JFrame {
 
     public Controlador_FRM_MantenimientoCursos controlador_FRM_MantenimientoCursos;
     FRM_Inicio frm_Inicio;
     
-    public FRM_MantenimientoCursos(FRM_Inicio frm_Inicio,ConexionBD conexion) {
+    public FRM_MantenimientoCursos(FRM_Inicio frm_Inicio,ConexionBD conexion,Verificador verificador) {
         super("Mantenimiento de Cursos");
         initComponents();
         this.setLocation(250, 200);
         this.frm_Inicio=frm_Inicio;
         controlador_FRM_MantenimientoCursos= new Controlador_FRM_MantenimientoCursos(frm_Inicio,this,conexion);
-        agregarEventos();
-
-    }
-    
-    public void agregarEventos()
-    {
         this.panel_Botones1.agregarEventos(controlador_FRM_MantenimientoCursos);
-        this.panel_Cursos2.agregarEventos(controlador_FRM_MantenimientoCursos);
+        this.panel_Cursos2.agregarEventos(controlador_FRM_MantenimientoCursos,verificador);
+
     }
     public String devolverSigla() 
     {

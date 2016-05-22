@@ -4,6 +4,7 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import modelo.ConexionBD;
+import modelo.Verificador;
 import vista.FRM_Inicio;
 import vista.FRM_Login;
 import vista.FRM_MantenimientoCursos;
@@ -22,6 +23,7 @@ public class Controlador_FRM_VentanaPrincipal implements ActionListener {
     FRM_Login frm_Login;
     public FRM_MantenimientoUsuarios frm_MantenimientoUsuarios;
     ConexionBD conexion;
+    Verificador verificador;
     
     public Controlador_FRM_VentanaPrincipal(FRM_VentanaPrincipal frm_VentanaPrincipal)
     {
@@ -32,11 +34,12 @@ public class Controlador_FRM_VentanaPrincipal implements ActionListener {
     public void iniciar()
     {
         conexion= new ConexionBD(this);
-        frm_MantenimientoEstudiantes= new FRM_MantenimientoEstudiantes(frm_Inicio,conexion);
-        frm_MantenimientoCursos= new FRM_MantenimientoCursos(frm_Inicio,conexion);
+        verificador= new Verificador();
+        frm_MantenimientoEstudiantes= new FRM_MantenimientoEstudiantes(frm_Inicio,conexion,verificador);
+        frm_MantenimientoCursos= new FRM_MantenimientoCursos(frm_Inicio,conexion,verificador);
         frm_Matricula= new FRM_Matricula(frm_Inicio,frm_MantenimientoEstudiantes,frm_MantenimientoCursos,conexion);
         conexion.asignarFRM_Matricula();
-        frm_MantenimientoUsuarios= new FRM_MantenimientoUsuarios(frm_Inicio,frm_VentanaPrincipal,conexion);
+        frm_MantenimientoUsuarios= new FRM_MantenimientoUsuarios(frm_Inicio,frm_VentanaPrincipal,conexion,verificador);
         frm_Login= new FRM_Login(frm_Inicio,frm_VentanaPrincipal,frm_MantenimientoUsuarios.controlador_FRM_MantenimientoUsuarios.metodosUsuarios,conexion,frm_MantenimientoUsuarios);
     }
     public void actionPerformed(ActionEvent e)

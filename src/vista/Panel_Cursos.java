@@ -2,10 +2,13 @@
 package vista;
 
 import controlador.Controlador_FRM_MantenimientoCursos;
+import javax.swing.JOptionPane;
+import modelo.Verificador;
 
 public class Panel_Cursos extends javax.swing.JPanel {
 
     Controlador_FRM_MantenimientoCursos controlador;
+    Verificador verificador;
     
     public Panel_Cursos() {
         initComponents();
@@ -13,6 +16,12 @@ public class Panel_Cursos extends javax.swing.JPanel {
         desabilitarCampos();
     }
     
+    public void agregarEventos(Controlador_FRM_MantenimientoCursos controlador,Verificador verificador)
+    {
+        this.btn_ConsultaRapida.addActionListener(controlador);
+        this.controlador=controlador;
+        this.verificador=verificador;
+    }
     public void cargarCreditos() 
     {
         this.jcb_Creditos.removeAllItems();
@@ -22,20 +31,22 @@ public class Panel_Cursos extends javax.swing.JPanel {
         }
         this.jcb_Creditos.setSelectedIndex(4);
     }
-    
-    public void agregarEventos(Controlador_FRM_MantenimientoCursos controlador)
-    {
-        this.btn_ConsultaRapida.addActionListener(controlador);
-        this.controlador=controlador;
-    }
-    
     public String devolverSigla() 
     {
-        return this.jt_Sigla.getText();
+        if(verificador.verificarCampoTexto(verificador.quitarEspacios(jt_Sigla.getText())))
+        {
+            return verificador.quitarEspacios(jt_Sigla.getText());
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"Debe rellenar el espacio de Sigla");
+            jt_Sigla.setText("");
+            return null;
+        }
     }
     public void habilitarEdicion()
     {
-        this.jt_Sigla.setEnabled(false);
+        this.jt_Sigla.setEditable(false);
         this.jt_NombreCurso.setEnabled(true);
         this.jcb_Creditos.setEnabled(true);
         this.jt_Horario.setEnabled(true);
@@ -61,17 +72,46 @@ public class Panel_Cursos extends javax.swing.JPanel {
     public String[] devolverInformacion()
     {
         String informacion[]=new String[4];
-        informacion[0]=this.jt_Sigla.getText();
-        informacion[1]=this.jt_NombreCurso.getText();
-        informacion[2]=""+this.jcb_Creditos.getSelectedIndex();
-        informacion[3]=this.jt_Horario.getText();
+        if(verificador.verificarCampoTexto(verificador.quitarEspacios(jt_Sigla.getText())))
+        {
+           informacion[0]=this.jt_Sigla.getText(); 
+           informacion[2]=""+this.jcb_Creditos.getSelectedIndex();
+        }
+        else
+        {
+            informacion=null;
+            JOptionPane.showMessageDialog(null,"Debe rellenar el espacio de Sigla");
+            this.jt_Sigla.setText("");
+        }
+        if(verificador.verificarLetras(jt_NombreCurso.getText()) && verificador.verificarCampoTexto(jt_NombreCurso.getText()))
+        {
+            informacion[1]=this.jt_NombreCurso.getText();
+            informacion[2]=""+this.jcb_Creditos.getSelectedIndex();
+        }
+        else
+        {
+            informacion=null;
+            JOptionPane.showMessageDialog(null,"El nombre del curso solo puede contener letras");
+            this.jt_NombreCurso.setText("");
+        }
+        if(verificador.verificarCampoTexto(jt_Horario.getText()))
+        {
+            informacion[2]=""+this.jcb_Creditos.getSelectedIndex();
+            informacion[3]=this.jt_Horario.getText();
+        }
+        else
+        {
+            informacion=null;
+            JOptionPane.showMessageDialog(null,"Debe rellenar el espacio de Horario");
+            this.jt_Horario.setText("");
+        }
         
         return informacion;
     }
     public void limpiarCampos()
     {
         this.jt_Sigla.setText("");
-        this.jt_Sigla.setEnabled(true);
+        this.jt_Sigla.setEditable(true);
         this.jt_NombreCurso.setText("");
         this.jt_NombreCurso.setEnabled(false);
         this.jcb_Creditos.setSelectedIndex(4);

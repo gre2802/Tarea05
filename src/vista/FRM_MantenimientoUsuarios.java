@@ -4,19 +4,22 @@ package vista;
 import controlador.Controlador_FRM_MantenimientoUsuarios;
 import javax.swing.JOptionPane;
 import modelo.ConexionBD;
+import modelo.Verificador;
 
 public class FRM_MantenimientoUsuarios extends javax.swing.JFrame {
 
     public Controlador_FRM_MantenimientoUsuarios controlador_FRM_MantenimientoUsuarios;
     FRM_Inicio frm_Inicio;
     FRM_VentanaPrincipal frm_VentanaPrincipal;
+    Verificador verificador;
     
-    public FRM_MantenimientoUsuarios(FRM_Inicio frm_Inicio,FRM_VentanaPrincipal frm_VentanaPrincipal,ConexionBD conexion) {
+    public FRM_MantenimientoUsuarios(FRM_Inicio frm_Inicio,FRM_VentanaPrincipal frm_VentanaPrincipal,ConexionBD conexion,Verificador verificador) {
         super("Mantenimiento de Usuarios");
         initComponents();
         this.setLocation(250, 200);
         this.frm_VentanaPrincipal=frm_VentanaPrincipal;
         this.frm_Inicio=frm_Inicio;
+        this.verificador=verificador;
         controlador_FRM_MantenimientoUsuarios= new Controlador_FRM_MantenimientoUsuarios(frm_Inicio,this,conexion);
         this.panel_Botones1.agregarEventos(controlador_FRM_MantenimientoUsuarios);
         cargarTipoUsuario();
@@ -64,17 +67,66 @@ public class FRM_MantenimientoUsuarios extends javax.swing.JFrame {
     public String[] devolverInformacion()
     {
         String informacion[]=new String[5];
-        informacion[0]=this.jt_Cedula.getText();
-        informacion[1]=this.jt_NombreCompleto.getText();
-        informacion[2]=this.jt_NombreUsuario.getText();
-        informacion[3]=this.jpf_Contraseña.getText();
-        informacion[4]=""+this.jcb_Tipo.getSelectedItem();
+        if(verificador.verificarNumero(verificador.quitarEspacios(jt_Cedula.getText())) && verificador.verificarCampoTexto(jt_Cedula.getText()))
+        {
+            informacion[0]=verificador.quitarEspacios(jt_Cedula.getText());
+            informacion[4]=""+this.jcb_Tipo.getSelectedItem();
+        }
+        else
+        {
+            informacion=null;
+            JOptionPane.showMessageDialog(null,"La cédula solo puede contener números");
+            this.jt_Cedula.setText("");
+        }
+        if(verificador.verificarLetras(jt_NombreCompleto.getText()) && verificador.verificarCampoTexto(jt_NombreCompleto.getText()))
+        {
+            informacion[1]=this.jt_NombreCompleto.getText();
+            informacion[4]=""+this.jcb_Tipo.getSelectedItem();
+        }
+        else
+        {
+            informacion=null;
+            JOptionPane.showMessageDialog(null,"El nombre solo puede contener letras");
+            this.jt_NombreCompleto.setText("");
+        }
+        if(verificador.verificarCampoTexto(verificador.quitarEspacios(jt_NombreUsuario.getText())))
+        {
+            informacion[2]=verificador.quitarEspacios(jt_NombreUsuario.getText());
+            informacion[4]=""+this.jcb_Tipo.getSelectedItem();
+        }
+        else
+        {
+            informacion=null;
+            JOptionPane.showMessageDialog(null,"Debe rellenar el espacio de Nombre Usuario");
+            this.jt_NombreUsuario.setText("");
+        }
+        if(verificador.verificarCampoTexto(jpf_Contraseña.getText()))
+        {
+            informacion[3]=this.jpf_Contraseña.getText();
+            informacion[4]=""+this.jcb_Tipo.getSelectedItem();
+        }
+        else
+        {
+            informacion=null;
+            JOptionPane.showMessageDialog(null,"Debe rellenar el espacio de Contraseña");
+            this.jpf_Contraseña.setText("");
+            this.jpf_RepetirContraseña.setText("");
+        }
         
         return informacion;
     }
     public String devolverCedula() 
     {
-        return this.jt_Cedula.getText();
+        if(verificador.verificarNumero(verificador.quitarEspacios(jt_Cedula.getText())) && verificador.verificarCampoTexto(jt_Cedula.getText()))
+        {
+            return verificador.quitarEspacios(jt_Cedula.getText());
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"La cédula solo puede contener números");
+            this.jt_Cedula.setText("");
+            return null;
+        }
     }
     public void habilitarEdicion()
     {
